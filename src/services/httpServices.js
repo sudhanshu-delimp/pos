@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-let api_url = `${process.env.REACT_APP_BASEURL}/api`
+let api_url = `${process.env.REACT_APP_BASEURL}`
 
 const instance = axios.create({
   baseURL: api_url ,
