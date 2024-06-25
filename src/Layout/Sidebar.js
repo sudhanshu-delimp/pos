@@ -14,13 +14,13 @@ function Sidebar() {
 
   return (
     <>
-      <div className="add__to_cart_container pr-5 pl-5 pt-5 shadow-md relative flex flex-col gap-[15px] w-[25rem]">
+      <div className="add__to_cart_container pr-3 pl-3 shadow-md relative flex flex-col gap-[15px] w-[50rem]">
         <div className="ccc">
           {items?.length > 0 &&
             items?.map((item, index) => (
               <div
                 key={index + 1}
-                className="cart--container flex items-center	gap-[10px] bg-gray-100 p-2 rounded-[6px] mt-2 mb-2"
+                className="cart--container flex items-center	gap-[10px] bg-gray-100 p-2 rounded-[6px] mt-1 mb-2"
               >
                 <div className="image--wrapper w-[30px] h-[30px] rounded-full outline outline-1 outline-offset-4 outline-gray-900">
                   <img
@@ -65,7 +65,7 @@ function Sidebar() {
         </div>
 
         {totalItems > 0 && (
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 bottom-5 sm:bottom-4 md:bottom-3 bg-gray-100 p-2 rounded-[6px] absolute bottom-5 w-[85%]">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 bg-[#3498db] p-2  absolute bottom-0 sm:bottom-4 md:bottom-3 lg:bottom-0">
             <h1 className="text-left text-[20px] font-bold">Total</h1>
             <h1 className=" text-[20px] font-bold text-right mt-1">
               {cartTotal.toFixed(2)}

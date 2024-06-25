@@ -6,8 +6,6 @@ import "./assets/css/newStyle.css";
 import { AppProvider } from "./context/AppContext";
 import { BrowserRouter } from "react-router-dom";
 
-
-
 function App() {
   return (
     <div className="App">

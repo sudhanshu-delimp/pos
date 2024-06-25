@@ -20,10 +20,46 @@
     outline: none;
 }
 .ccc{
-    max-height: 300px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
     overflow-y: scroll;
+    max-height: calc(100vh - 5rem);
+}
+.ccc {
+    -ms-overflow-style: none;  
+    scrollbar-width: none; 
+  }
+
+  .order_and_logout_container{
+	position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 74%;
+    color: white;
+    text-align: center;
+}
+.add__to_cart_container .grid {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 25%;
+    color: white;
+    text-align: center;
 }
 
 .ccc::-webkit-scrollbar {
     display: none; 
+  }
+  .grid--container{
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-y: scroll;
+    max-height: calc(100vh - 5rem);
+  }
+  .grid--container{
+    -ms-overflow-style: none;  
+    scrollbar-width: none;
+  }
+  .grid--container::-webkit-scrollbar{
+    display: none;
   }
