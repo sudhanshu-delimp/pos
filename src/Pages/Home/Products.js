@@ -2,13 +2,14 @@ import React, { useState, useEffect, useRef } from "react";
 import { IoFastFoodOutline } from "react-icons/io5";
 import { TiCancel } from "react-icons/ti";
 import { MdMoreHoriz } from "react-icons/md";
+import { GoPlus } from "react-icons/go";
 import productData from "../../utils/products";
 import lock from "../../assets/images/lock.svg";
 import useAddToCart from "../../hooks/useAddToCart";
 import { notifyError } from "../../utils/toast";
 import { useCart } from "react-use-cart";
 import { IoIosLogOut } from "react-icons/io";
-import { MdOutlineProductionQuantityLimits } from "react-icons/md";
+import { MdProductionQuantityLimits } from "react-icons/md";
 
 console.log("productData", productData);
 
@@ -16,6 +17,7 @@ const Products = () => {
   const { handleAddItem } = useAddToCart();
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [customerScreenVisible, setCustomerScreenVisible] = useState(false);
   const dropdownRef = useRef(null);
 
   const { emptyCart } = useCart();
@@ -66,6 +68,15 @@ const Products = () => {
 
   const closeModal = () => {
     setModalVisible(false);
+    setCustomerScreenVisible(false);
+  };
+
+  const openCustomerScreen = () => {
+    setCustomerScreenVisible(true);
+  };
+
+  const closeCustomerScreen = () => {
+    setCustomerScreenVisible(false);
   };
 
   return (
@@ -77,7 +88,6 @@ const Products = () => {
             className="max-w-[100px] rounded-[6px] flex flex-col cursor-pointer items-center justify-center gap-[5px] w-[80px] h-[45px] bg-[#ffffffc7]"
           >
             <TiCancel className="text-[20px]" />
-
             <p>Void</p>
           </div>
           <div className="relative max-w-[100px] rounded-[6px] flex flex-col items-center justify-center gap-[5px] w-[80px] h-[45px] bg-[#ffffffc7]">
@@ -103,7 +113,7 @@ const Products = () => {
             )}
           </div>
         </div>
-        <div className="grid--container grid items-center justify-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:md:grid-cols-4 gap-[10px] pt-1 pl-2">
+        <div className="grid--container grid items-center justify-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:md:grid-cols-4 gap-[10px] pt-1 pl-2 pb-10 pt-10">
           {productData?.map((item) => (
             <div
               key={item._id}
@@ -135,275 +145,189 @@ const Products = () => {
         </div>
         <div className="order_and_logout_container m-w-[300px] h-[50px] bg-[#3498db] flex items-center justify-end gap-[5px] p-2">
           <div className="max-w-[100px] rounded-[6px] flex flex-col cursor-pointer items-center justify-center gap-[5px] w-[80px] h-[45px] bg-[#ffffffc7]">
-            <TiCancel className="text-[30px]" />
-            <p>Order</p>
+            <MdProductionQuantityLimits className="text-[30px] text-[#000]" />
+            <p className=" text-[#000]">Order</p>
           </div>
           <div className="max-w-[100px] rounded-[6px] flex flex-col cursor-pointer items-center justify-center gap-[5px] w-[80px] h-[45px] bg-[#ffffffc7]">
-            <IoIosLogOut className="text-[30px]" />
-            <p>Logout</p>
+            <IoIosLogOut className="text-[30px] text-[#000]" />
+            <p className="text-[#000]">Logout</p>
           </div>
         </div>
       </div>
 
       {modalVisible && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg p-4 w-96">
-            <h2 className="text-2xl mb-4">Add Customer</h2>
-            <div className="table_container">
-              <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <div class="pb-4 bg-white dark:bg-gray-900">
-                  <label for="table-search" class="sr-only">
-                    Search
-                  </label>
-                  <div class="relative mt-1">
-                    <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                      <svg
-                        class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                        />
-                      </svg>
-                    </div>
-                    <input
-                      type="text"
-                      id="table-search"
-                      class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="Search for items"
-                    />
+          <div
+            className={`bg-white rounded-lg p-4 w-[80%] max-w-[600px] transition-transform duration-300 ${
+              customerScreenVisible ? "translate-x-0" : "translate-x-0"
+            }`}
+          >
+            {!customerScreenVisible ? (
+              <>
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <button
+                      type="button"
+                      className="bg-[#3498db] text-white px-4 py-2 rounded mr-2"
+                      onClick={closeModal}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                  <div>
+                    <a className=" text-[#000]">Customers</a>
+                  </div>
+                  <div>
+                    <button
+                      onClick={openCustomerScreen}
+                      className="cursor-pointer bg-[#3498db] text-white px-4 py-2 rounded"
+                    >
+                      Add
+                    </button>
                   </div>
                 </div>
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                  <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                      <th scope="col" class="p-4">
-                        <div class="flex items-center">
-                          <input
-                            id="checkbox-all-search"
-                            type="checkbox"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                          />
-                          <label for="checkbox-all-search" class="sr-only">
-                            checkbox
-                          </label>
+
+                <div className="table_container">
+                  <div className="relative overflow-x-auto shadow-md sm:rounded-lg tbody_scroll">
+                    <div className="pb-4 bg-white dark:bg-gray-900">
+                      <label htmlFor="table-search" className="sr-only">
+                        Search
+                      </label>
+                      <div className="relative mt-1">
+                        <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+                          <svg
+                            className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                            />
+                          </svg>
                         </div>
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                        Product name
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                        Color
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                        Category
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                        Price
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                        Action
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                      <td class="w-4 p-4">
-                        <div class="flex items-center">
-                          <input
-                            id="checkbox-table-search-1"
-                            type="checkbox"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                          />
-                          <label for="checkbox-table-search-1" class="sr-only">
-                            checkbox
-                          </label>
-                        </div>
-                      </td>
-                      <th
-                        scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                      >
-                        Apple MacBook Pro 17"
-                      </th>
-                      <td class="px-6 py-4">Silver</td>
-                      <td class="px-6 py-4">Laptop</td>
-                      <td class="px-6 py-4">$2999</td>
-                      <td class="px-6 py-4">
-                        <a
-                          href="#"
-                          class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                        >
-                          Edit
-                        </a>
-                      </td>
-                    </tr>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                      <td class="w-4 p-4">
-                        <div class="flex items-center">
-                          <input
-                            id="checkbox-table-search-2"
-                            type="checkbox"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                          />
-                          <label for="checkbox-table-search-2" class="sr-only">
-                            checkbox
-                          </label>
-                        </div>
-                      </td>
-                      <th
-                        scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                      >
-                        Microsoft Surface Pro
-                      </th>
-                      <td class="px-6 py-4">White</td>
-                      <td class="px-6 py-4">Laptop PC</td>
-                      <td class="px-6 py-4">$1999</td>
-                      <td class="px-6 py-4">
-                        <a
-                          href="#"
-                          class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                        >
-                          Edit
-                        </a>
-                      </td>
-                    </tr>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                      <td class="w-4 p-4">
-                        <div class="flex items-center">
-                          <input
-                            id="checkbox-table-search-3"
-                            type="checkbox"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                          />
-                          <label for="checkbox-table-search-3" class="sr-only">
-                            checkbox
-                          </label>
-                        </div>
-                      </td>
-                      <th
-                        scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                      >
-                        Magic Mouse 2
-                      </th>
-                      <td class="px-6 py-4">Black</td>
-                      <td class="px-6 py-4">Accessories</td>
-                      <td class="px-6 py-4">$99</td>
-                      <td class="px-6 py-4">
-                        <a
-                          href="#"
-                          class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                        >
-                          Edit
-                        </a>
-                      </td>
-                    </tr>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                      <td class="w-4 p-4">
-                        <div class="flex items-center">
-                          <input
-                            id="checkbox-table-3"
-                            type="checkbox"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                          />
-                          <label for="checkbox-table-3" class="sr-only">
-                            checkbox
-                          </label>
-                        </div>
-                      </td>
-                      <th
-                        scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                      >
-                        Apple Watch
-                      </th>
-                      <td class="px-6 py-4">Silver</td>
-                      <td class="px-6 py-4">Accessories</td>
-                      <td class="px-6 py-4">$179</td>
-                      <td class="px-6 py-4">
-                        <a
-                          href="#"
-                          class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                        >
-                          Edit
-                        </a>
-                      </td>
-                    </tr>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                      <td class="w-4 p-4">
-                        <div class="flex items-center">
-                          <input
-                            id="checkbox-table-3"
-                            type="checkbox"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                          />
-                          <label for="checkbox-table-3" class="sr-only">
-                            checkbox
-                          </label>
-                        </div>
-                      </td>
-                      <th
-                        scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                      >
-                        iPad
-                      </th>
-                      <td class="px-6 py-4">Gold</td>
-                      <td class="px-6 py-4">Tablet</td>
-                      <td class="px-6 py-4">$699</td>
-                      <td class="px-6 py-4">
-                        <a
-                          href="#"
-                          class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                        >
-                          Edit
-                        </a>
-                      </td>
-                    </tr>
-                    <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-                      <td class="w-4 p-4">
-                        <div class="flex items-center">
-                          <input
-                            id="checkbox-table-3"
-                            type="checkbox"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                          />
-                          <label for="checkbox-table-3" class="sr-only">
-                            checkbox
-                          </label>
-                        </div>
-                      </td>
-                      <th
-                        scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                      >
-                        Apple iMac 27"
-                      </th>
-                      <td class="px-6 py-4">Silver</td>
-                      <td class="px-6 py-4">PC Desktop</td>
-                      <td class="px-6 py-4">$3999</td>
-                      <td class="px-6 py-4">
-                        <a
-                          href="#"
-                          class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                        >
-                          Edit
-                        </a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+                        <input
+                          type="text"
+                          id="table-search"
+                          className="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[100%] search_customer"
+                          placeholder="Search for items"
+                        />
+                      </div>
+                    </div>
+                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                      <tbody>
+                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                          <td className="px-6 py-4 text-[#000]">A customer</td>
+                          <td className="px-6 py-4 text-[#000] ">54154555</td>
+                        </tr>
+                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                          <td className="px-6 py-4 text-[#000]">A customer</td>
+                          <td className="px-6 py-4 text-[#000]">54154555</td>
+                        </tr>
+                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                          <td className="px-6 py-4 text-[#000]">A customer</td>
+                          <td className="px-6 py-4 text-[#000]">54154555</td>
+                        </tr>
+                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                          <td className="px-6 py-4 text-[#000]">A customer</td>
+                          <td className="px-6 py-4 text-[#000]">54154555</td>
+                        </tr>
+                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                          <td className="px-6 py-4 text-[#000]">A customer</td>
+                          <td className="px-6 py-4 text-[#000]">54154555</td>
+                        </tr>
+                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                          <td className="px-6 py-4 text-[#000]">A customer</td>
+                          <td className="px-6 py-4 text-[#000]">54154555</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                {/* Add your customer details content here */}
+                <div className="addcustomer_container m-auto">
+                  <div className="flex flex items-center justify-between">
+                    <button
+                      type="button"
+                      className="bg-[#3498db] text-white px-4 py-2 rounded mb-4"
+                      onClick={closeCustomerScreen}
+                    >
+                      Back
+                    </button>
+                    <h3>Create new customer</h3>
+                    <button className="bg-[#3498db] text-white px-4 py-2 rounded mb-4">
+                      Save
+                    </button>
+                  </div>
+
+                  <div className="form_container max-w-[100%] m-auto">
+                    <form>
+                      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-[10px]">
+                        <input
+                          type="text"
+                          placeholder="First Name"
+                          className="px-5 py-3"
+                        />
+                        <input
+                          type="text"
+                          placeholder="Last Name"
+                          className="px-5 py-3"
+                        />
+                      </div>
+                      <input
+                        type="text"
+                        placeholder="Address Line 1"
+                        className="px-5 py-3 mt-3 mb-3"
+                      />
+                      <input
+                        type="text"
+                        placeholder="Address Line 2"
+                        className="px-5 py-3"
+                      />
+                      <div className="mt-3 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-[10px]">
+                        <select className="px-5 py-3">
+                          <option>Country</option>
+                          <option>Usa</option>
+                          <option>Austrlia</option>
+                          <option>England</option>
+                        </select>
+                        <select className="px-5 py-3">
+                          <option>State</option>
+                          <option>Usa</option>
+                          <option>Austrlia</option>
+                          <option>England</option>
+                        </select>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-[10px] mt-3">
+                        <input
+                          type="text"
+                          placeholder="Zip"
+                          className="px-5 py-3"
+                        />
+                        <input
+                          type="text"
+                          placeholder="Phone"
+                          className="px-5 py-3"
+                        />
+                      </div>
+                      <input
+                        type="email"
+                        placeholder="email"
+                        className="px-5 py-3 mt-3"
+                      />
+                    </form>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}

@@ -23,10 +23,7 @@ function Sidebar() {
                 className="cart--container flex items-center	gap-[10px] bg-gray-100 p-2 rounded-[6px] mt-1 mb-2"
               >
                 <div className="image--wrapper w-[30px] h-[30px] rounded-full outline outline-1 outline-offset-4 outline-gray-900">
-                  <img
-                    src={require("../assets/images/t-shirt.jpg")}
-                    className="rounded-full"
-                  />
+                  <img src={item.image} className="rounded-full" />
                 </div>
                 <div className="add--item--content">
                   <div>
