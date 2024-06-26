@@ -50,7 +50,7 @@ const Login = () => {
   });
 
   return (
-    <div className="container--login bg-[#ffffff] rounded-[8px] w-[400px] p-5 relative m-auto pb-10">
+    <div className="container--login bg-[#ffffff] rounded-[8px] w-[400px] p-5 relative m-auto pb-10 mt-[15%]">
       <div className="card">
         <div className="panel">
           <h4 className="text-center pb-5">

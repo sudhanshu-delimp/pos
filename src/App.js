@@ -5,6 +5,7 @@ import "./assets/css/customStyle.css";
 import "./assets/css/newStyle.css";
 import { AppProvider } from "./context/AppContext";
 import { BrowserRouter } from "react-router-dom";
+// import Listing from "./Pages/Auth/Listing";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         </AppProvider>
       </div>
       <ToastContainer />
+      {/* <Listing /> */}
     </div>
   );
 }
