@@ -90,11 +90,11 @@ const Products = () => {
             <TiCancel className="text-[20px]" />
             <p>Void</p>
           </div>
-          <div className="relative max-w-[100px] rounded-[6px] flex flex-col items-center justify-center gap-[5px] w-[80px] h-[45px] bg-[#ffffffc7]">
-            <MdMoreHoriz
-              className="text-[20px] cursor-pointer"
-              onClick={toggleDropdown}
-            />
+          <div
+            className="relative max-w-[100px] rounded-[6px] flex flex-col items-center justify-center gap-[5px] w-[80px] h-[45px] bg-[#ffffffc7] cursor-pointer"
+            onClick={toggleDropdown}
+          >
+            <MdMoreHoriz className="text-[20px] cursor-pointer" />
             <p>More</p>
             {dropdownVisible && (
               <div
@@ -103,7 +103,7 @@ const Products = () => {
               >
                 <div className="flex flex-col">
                   <button
-                    className="px-4 py-2 hover:bg-gray-100"
+                    className=" py-1 hover:bg-gray-100"
                     onClick={handleAddCustomer}
                   >
                     Add Customer
@@ -214,7 +214,7 @@ const Products = () => {
                         <input
                           type="text"
                           id="table-search"
-                          className="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[100%] search_customer"
+                          className="block pt-2 pb-2 ps-10 text-sm text-gray-900 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[100%] search_customer"
                           placeholder="Search for items"
                         />
                       </div>
@@ -223,27 +223,39 @@ const Products = () => {
                       <tbody>
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                           <td className="px-6 py-4 text-[#000]">A customer</td>
-                          <td className="px-6 py-4 text-[#000] ">54154555</td>
+                          <td className="px-6 py-4 text-[#000] text-right ">
+                            54154555
+                          </td>
                         </tr>
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                           <td className="px-6 py-4 text-[#000]">A customer</td>
-                          <td className="px-6 py-4 text-[#000]">54154555</td>
+                          <td className="px-6 py-4 text-[#000] text-right">
+                            54154555
+                          </td>
                         </tr>
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                           <td className="px-6 py-4 text-[#000]">A customer</td>
-                          <td className="px-6 py-4 text-[#000]">54154555</td>
+                          <td className="px-6 py-4 text-[#000] text-right">
+                            54154555
+                          </td>
                         </tr>
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                           <td className="px-6 py-4 text-[#000]">A customer</td>
-                          <td className="px-6 py-4 text-[#000]">54154555</td>
+                          <td className="px-6 py-4 text-[#000] text-right">
+                            54154555
+                          </td>
                         </tr>
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                           <td className="px-6 py-4 text-[#000]">A customer</td>
-                          <td className="px-6 py-4 text-[#000]">54154555</td>
+                          <td className="px-6 py-4 text-[#000] text-right">
+                            54154555
+                          </td>
                         </tr>
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                           <td className="px-6 py-4 text-[#000]">A customer</td>
-                          <td className="px-6 py-4 text-[#000]">54154555</td>
+                          <td className="px-6 py-4 text-[#000] text-right">
+                            54154555
+                          </td>
                         </tr>
                       </tbody>
                     </table>
@@ -253,77 +265,143 @@ const Products = () => {
             ) : (
               <>
                 {/* Add your customer details content here */}
+                <div className="flex flex items-center justify-between">
+                  <button
+                    type="button"
+                    className="bg-[#3498db] text-white px-4 py-2 rounded mb-4"
+                    onClick={closeCustomerScreen}
+                  >
+                    Back
+                  </button>
+                  <h3>Create new customer</h3>
+                  <button className="bg-[#3498db] text-white px-4 py-2 rounded mb-4">
+                    Save
+                  </button>
+                </div>
                 <div className="addcustomer_container m-auto">
-                  <div className="flex flex items-center justify-between">
-                    <button
-                      type="button"
-                      className="bg-[#3498db] text-white px-4 py-2 rounded mb-4"
-                      onClick={closeCustomerScreen}
-                    >
-                      Back
-                    </button>
-                    <h3>Create new customer</h3>
-                    <button className="bg-[#3498db] text-white px-4 py-2 rounded mb-4">
-                      Save
-                    </button>
-                  </div>
-
                   <div className="form_container max-w-[100%] m-auto">
-                    <form>
-                      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-[10px]">
+                    <div className="billing_address">
+                      <form>
+                        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-[10px]">
+                          <input
+                            type="text"
+                            placeholder="First Name"
+                            className="px-5 py-1 sm:py-1 md:py-1 lg:py-2"
+                          />
+                          <input
+                            type="text"
+                            placeholder="Last Name"
+                            className="px-5 py-3"
+                          />
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-[10px] mt-3">
+                          <input
+                            type="tel"
+                            placeholder="Phone"
+                            className="px-5 py-3 mt-3"
+                          />
+                          <input
+                            type="email"
+                            placeholder="Email"
+                            className="px-5 py-3 mt-3"
+                          />
+                        </div>
                         <input
                           type="text"
-                          placeholder="First Name"
-                          className="px-5 py-3"
+                          placeholder="Address Line 1"
+                          className="px-5 py-3 mt-3 mb-3"
                         />
                         <input
                           type="text"
-                          placeholder="Last Name"
+                          placeholder="Address Line 2"
                           className="px-5 py-3"
                         />
-                      </div>
-                      <input
-                        type="text"
-                        placeholder="Address Line 1"
-                        className="px-5 py-3 mt-3 mb-3"
-                      />
-                      <input
-                        type="text"
-                        placeholder="Address Line 2"
-                        className="px-5 py-3"
-                      />
-                      <div className="mt-3 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-[10px]">
-                        <select className="px-5 py-3">
-                          <option>Country</option>
-                          <option>Usa</option>
-                          <option>Austrlia</option>
-                          <option>England</option>
-                        </select>
-                        <select className="px-5 py-3">
-                          <option>State</option>
-                          <option>Usa</option>
-                          <option>Austrlia</option>
-                          <option>England</option>
-                        </select>
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-[10px] mt-3">
+                        <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-[10px]">
+                          <select className="px-5 py-3">
+                            <option>Country</option>
+                            <option>Usa</option>
+                            <option>Austrlia</option>
+                            <option>England</option>
+                          </select>
+                          <select className="px-5 py-3">
+                            <option>State</option>
+                            <option>Usa</option>
+                            <option>Austrlia</option>
+                            <option>England</option>
+                          </select>
+                          <input
+                            type="text"
+                            placeholder="Zip"
+                            className="px-5 py-3"
+                          />
+                        </div>
+                      </form>
+                    </div>
+                    <div className="shipping_address">
+                      <input type="checkbox" className="mt-5" />{" "}
+                      <span className="text-[16px] pb-5 pt-5  text-[#00000082]">
+                        <span className="pt-1 pr-1"></span>
+                        Ship to a different address
+                      </span>
+                      <h1 className="text-[16px] pb-3 text-[#000000]">
+                        Shipping Address
+                      </h1>
+                      <form>
+                        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-[10px]">
+                          <input
+                            type="text"
+                            placeholder="First Name"
+                            className="px-5 py-3"
+                          />
+                          <input
+                            type="text"
+                            placeholder="Last Name"
+                            className="px-5 py-3"
+                          />
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-[10px] mt-3">
+                          <input
+                            type="tel"
+                            placeholder="phone"
+                            className="px-5 py-3 mt-3"
+                          />
+                          <input
+                            type="email"
+                            placeholder="email"
+                            className="px-5 py-3 mt-3"
+                          />
+                        </div>
                         <input
                           type="text"
-                          placeholder="Zip"
-                          className="px-5 py-3"
+                          placeholder="Address Line 1"
+                          className="px-5 py-3 mt-3 mb-3"
                         />
                         <input
                           type="text"
-                          placeholder="Phone"
+                          placeholder="Address Line 2"
                           className="px-5 py-3"
                         />
-                      </div>
-                      <input
-                        type="email"
-                        placeholder="email"
-                        className="px-5 py-3 mt-3"
-                      />
-                    </form>
+                        <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-[10px]">
+                          <select className="px-5 py-3">
+                            <option>Country</option>
+                            <option>Usa</option>
+                            <option>Austrlia</option>
+                            <option>England</option>
+                          </select>
+                          <select className="px-5 py-3">
+                            <option>State</option>
+                            <option>Usa</option>
+                            <option>Austrlia</option>
+                            <option>England</option>
+                          </select>
+                          <input
+                            type="text"
+                            placeholder="Zip"
+                            className="px-5 py-3"
+                          />
+                        </div>
+                      </form>
+                    </div>
                   </div>
                 </div>
               </>

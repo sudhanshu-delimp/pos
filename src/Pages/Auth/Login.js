@@ -50,18 +50,15 @@ const Login = () => {
   });
 
   return (
-    <div className="container--login pl-5 pr-5">
+    <div className="container--login bg-[#ffffff] rounded-[8px] w-[400px] p-5 relative m-auto pb-10">
       <div className="card">
         <div className="panel">
-          <h4>
+          <h4 className="text-center pb-5">
             Welcome to the <b>POS</b>
           </h4>
         </div>
         <form onSubmit={formik.handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="username" className="form-label">
-              User name
-            </label>
             <input
               required
               name="username"
@@ -69,21 +66,18 @@ const Login = () => {
               value={formik.values.username}
               onBlur={formik.handleBlur}
               type="text"
-              className="form-control"
-              placeholder="User name"
+              className="w-[100%] py-2 px-3"
+              placeholder="User Name"
             />
             {formik.touched.username && formik.errors.username ? (
               <span className="text-danger">{formik.errors.username}</span>
             ) : null}
           </div>
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
-            <div className="input-group">
+          <div className="mb-3 ">
+            <div className="input-group flex items-center	justify-center	">
               <input
                 type={showPassword ? "text" : "password"}
-                className="form-control"
+                className="w-[100%] py-2 px-3"
                 required
                 name="password"
                 onChange={formik.handleChange}
@@ -92,7 +86,7 @@ const Login = () => {
                 placeholder="Password"
               />
               <span
-                className="input-group-text pass--eye"
+                className="absolute right-10	"
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? <BsEye /> : <BsEyeSlash />}
@@ -102,7 +96,7 @@ const Login = () => {
               <span className="text-danger">{formik.errors.password}</span>
             ) : null}
           </div>
-          <div className="mb-3 form-check">
+          <div className="">
             <input
               type="checkbox"
               className="form-check-input"
@@ -110,11 +104,14 @@ const Login = () => {
               checked={rememberMe}
               onChange={() => setRememberMe(!rememberMe)}
             />
-            <label className="form-check-label" htmlFor="rememberMe">
+            <label className="form-check-label ml-1" htmlFor="rememberMe">
               Remember Me
             </label>
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button
+            type="submit"
+            className="w-[100%] bg-[#3498db] py-2 px-3 mt-3 rounded-[6px] text-[#ffffff]"
+          >
             {loading ? "Processing" : "Login"}
           </button>
         </form>
