@@ -1,38 +1,29 @@
-import React, { useState, useMemo, createContext, useEffect } from "react";
+import React, { useState, useMemo, createContext} from "react";
 
 export const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
-
-  const toggleModal = () => setIsModalOpen(!isModalOpen);
-  const closeModal = () => setIsModalOpen(false);
-
-  const handleChangePage = (p) => {
-    setCurrentPage(p);
-  };
+  const [customerModal, setCustomerModal] = useState(false);
+  const [addCustomer, setAddCustomer] = useState(false);
 
 
   const value = useMemo(
     () => ({
-      isModalOpen,
-      toggleModal,
-      closeModal,
       currentPage,
       setCurrentPage,
-      handleChangePage,
       isLoading,
-      setIsLoading,
-      modalOpen,
-      setModalOpen,
       isUpdate,
       setIsUpdate,
+      customerModal,
+      setCustomerModal,
+      addCustomer,
+      setAddCustomer,
+      setIsLoading
     }),
-    [isModalOpen, currentPage, isLoading, modalOpen,]
+    [ currentPage, isLoading , customerModal , addCustomer]
   );
 
   return (

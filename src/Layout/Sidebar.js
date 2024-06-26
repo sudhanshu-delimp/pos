@@ -13,7 +13,7 @@ function Sidebar() {
   console.log("totalItems", totalItems);
 
   return (
-    <>
+  
       <div className="add__to_cart_container pr-3 pl-3 shadow-md relative flex flex-col gap-[15px] w-[50rem]">
         <div className="ccc">
           {items?.length > 0 &&
@@ -70,7 +70,7 @@ function Sidebar() {
           </div>
         )}
       </div>
-    </>
+    
   );
 }
 

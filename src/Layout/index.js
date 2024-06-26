@@ -1,14 +1,18 @@
-import React, { Fragment } from "react";
+import React from "react";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import Footer from "./Footer";
 
 const Layout = ({ children }) => {
     return (
-        <Fragment>
+        <div className="flex">
             <Sidebar />
-            <Header />
-            {children}
-        </Fragment>
+            <div>
+                <Header />
+                {children}
+                <Footer />
+            </div>
+        </div>
     );
 };
 

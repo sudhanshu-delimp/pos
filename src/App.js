@@ -5,23 +5,19 @@ import "./assets/css/customStyle.css";
 import "./assets/css/newStyle.css";
 import { AppProvider } from "./context/AppContext";
 import { BrowserRouter } from "react-router-dom";
-// import Listing from "./Pages/Auth/Listing";
 
 function App() {
   return (
-    <div className="App">
-      <div className="flex">
-        <AppProvider>
-          <CartProvider>
-            <BrowserRouter>
-              <RootRouters />
-            </BrowserRouter>
-          </CartProvider>
-        </AppProvider>
-      </div>
+       <>
+      <AppProvider>
+        <CartProvider>
+          <BrowserRouter>
+            <RootRouters />
+          </BrowserRouter>
+        </CartProvider>
+      </AppProvider>
       <ToastContainer />
-      {/* <Listing /> */}
-    </div>
+      </>
   );
 }
 
