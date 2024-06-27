@@ -50,7 +50,7 @@ const Login = () => {
   });
 
   return (
-    <div className="container--login bg-[#ffffff] rounded-[8px] w-[400px] p-5 relative m-auto pb-10 mt-[15%]">
+    <div className="container--login bg-[#ffffff] rounded-[8px] w-[350px] p-5 relative m-auto pb-[3rem] pt-[3rem] mt-[15%]">
       <div className="card">
         <div className="panel">
           <h4 className="text-center pb-5">
@@ -58,7 +58,7 @@ const Login = () => {
           </h4>
         </div>
         <form onSubmit={formik.handleSubmit}>
-          <div className="mb-3">
+          <div className="mb-5">
             <input
               required
               name="username"
@@ -96,7 +96,7 @@ const Login = () => {
               <span className="text-danger">{formik.errors.password}</span>
             ) : null}
           </div>
-          <div className="">
+          <div className="py-5">
             <input
               type="checkbox"
               className="form-check-input"
