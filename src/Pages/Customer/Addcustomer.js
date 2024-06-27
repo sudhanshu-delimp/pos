@@ -1,6 +1,5 @@
 import React, { useState, useRef, useContext } from "react";
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
-import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 import { AppContext } from "../../context/AppContext";
 import { notifyError, notifySuccess } from "../../utils/toast";
 import useUtilsFunction from "../../hooks/useUtilsFunction";
@@ -292,14 +291,36 @@ const Addcustomer = () => {
                 />
               </div>
               <div className="mt-3">
+                <input
+                  type="text"
+                  name="company"
+                  required
+                  value={billing.company}
+                  onChange={handleBillingChange}
+                  placeholder="Company"
+                  className="px-5 py-3"
+                />
+              </div>
+              <div className="mt-3">
                 <GooglePlacesAutocomplete
                   apiKey={process.env.REACT_APP_GOOGLE_API_KEY}
                   selectProps={{
-                    placeholder: "Billing Address",
+                    placeholder: "Billing Address 1",
                     isClearable: true,
                     billingAddress,
                     onChange: selectBillingAddress,
                   }}
+                />
+              </div>
+              <div className="mt-3">
+                <input
+                  type="text"
+                  name="address_2"
+                  required
+                  value={billing.address_2}
+                  onChange={handleBillingChange}
+                  placeholder="Address 2"
+                  className="px-5 py-3"
                 />
               </div>
               <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-[10px]">
@@ -360,6 +381,18 @@ const Addcustomer = () => {
                       value={shipping.last_name}
                       onChange={handleShippingChange}
                       placeholder="Last Name"
+                      className="px-5 py-3"
+                    />
+                  </div>
+
+                  <div className="mt-3">
+                    <input
+                      type="text"
+                      name="company"
+                      required
+                      value={shipping.company}
+                      onChange={handleShippingChange}
+                      placeholder="Company"
                       className="px-5 py-3"
                     />
                   </div>

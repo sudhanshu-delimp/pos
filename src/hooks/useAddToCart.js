@@ -10,13 +10,8 @@ const useAddToCart = () => {
   const handleAddItem = (product) => {
     const result = items.find((i) => i.id === product.id);
     const { description, ...updatedProduct } = product;
-    if (result !== undefined) {
-      addItem(updatedProduct, item);
-      notifySuccess(`${item} ${product.title} added to cart!`);
-    } else {
-      addItem(updatedProduct, item);
-      notifySuccess(`${item} ${product.title} added to cart!`);
-    }
+    addItem(updatedProduct, item);
+   // notifySuccess(`${item} ${product.title} added to cart!`);
   };
 
   const handleIncreaseQuantity = (product) => {

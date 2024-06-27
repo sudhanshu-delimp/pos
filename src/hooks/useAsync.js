@@ -25,7 +25,6 @@ const useAsync = (asyncFunction) => {
             try {
                 setLoading(true);
                 const response = await asyncFunction({ cancelToken: source.token });
-                console.log("response", response)
                 setLoading(false);
                 setError("");
                 setData(response);

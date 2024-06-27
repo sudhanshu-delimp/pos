@@ -1,10 +1,14 @@
 import React, { useContext, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
-import CustomerModal from './CustomerModal';
 import CustomerServices from "../../services/CutomerServices";
 import useAsync from './../../hooks/useAsync';
+import { useDispatch } from 'react-redux';
+import { saveCustomer } from '../../redux/reducers/appSlice';
+import { notifyError, notifySuccess } from "../../utils/toast";
+
 
 const CustomerList = () => {
+    const dispatch = useDispatch()
     const { setAddCustomer, setCustomerModal } = useContext(AppContext);
     const { data, loading, error } = useAsync(() => CustomerServices.getCustomerListApi());
     const [searchQuery, setSearchQuery] = useState('');
@@ -13,11 +17,17 @@ const CustomerList = () => {
         setSearchQuery(e.target.value);
     };
 
-    const filteredData = data ? data.filter(item => 
+    const filteredData = data ? data.filter(item =>
         item.first_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.last_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item?.billing?.phone.toLowerCase().includes(searchQuery.toLowerCase())
     ) : [];
+
+      const handleSelectCustomer = (customer) => {
+        dispatch(saveCustomer(customer))
+        notifySuccess("Customer Selected Successfully")
+        setCustomerModal(false)
+      }
 
     return (
         <>
@@ -79,22 +89,21 @@ const CustomerList = () => {
                     </div>
                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <tbody>
-                            {filteredData && filteredData.length > 0 ? (
+                            {filteredData && filteredData?.length > 0 &&
                                 filteredData.map((item, index) => (
-                                    <tr key={index + 1} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <tr onClick={() => handleSelectCustomer(item)} key={index + 1} className="bg-white border-b cursor-pointer dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                         <td className="px-6 py-4 text-[#000]">{`${item.first_name} ${item.last_name}`}</td>
                                         <td className="px-6 py-4 text-[#000] text-right">
                                             {item?.billing?.phone}
                                         </td>
                                     </tr>
                                 ))
-                            ) : (
-                                <tr>
-                                    <td colSpan="2" className="px-6 py-4 text-[#000] text-center">
-                                        No results found
-                                    </td>
-                                </tr>
-                            )}
+                            }
+                            {!loading && filteredData.length === 0 && <tr>
+                                <td colSpan="2" className="px-6 py-4 text-[#000] text-center">
+                                    No results found
+                                </td>
+                            </tr>}
                         </tbody>
                     </table>
                 </div>
