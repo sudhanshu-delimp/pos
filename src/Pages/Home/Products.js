@@ -43,7 +43,7 @@ const Products = () => {
             <div className="images--container">
               <img
                 src={item.images[0]?.src}
-                className="rounded-[9px] w-full w-[100%] h-[300px] object-cover max-w-[500px]"
+                className="rounded-[9px] w-[100%] h-[240px] object-cover max-w-[500px]"
               />
             </div>
             <div className="content">
