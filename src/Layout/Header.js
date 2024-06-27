@@ -4,8 +4,11 @@ import { TiCancel } from "react-icons/ti";
 import { MdMoreHoriz } from "react-icons/md";
 import CustomerModal from "../Pages/Customer/CustomerModal";
 import { AppContext } from "../context/AppContext";
+import { useDispatch } from "react-redux";
+import { saveCustomer } from "../redux/reducers/appSlice";
 
 function Header() {
+  const dispatch = useDispatch()
   const { emptyCart } = useCart();
   const dropdownRef = useRef(null);
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -32,11 +35,17 @@ function Header() {
     };
   }, []);
 
+  const handleVoidCustomer = () => {
+    dispatch(saveCustomer(""));
+    emptyCart();
+
+  }
+
   return (
     <>
       <div className="box--container m-w-[300px] bg-[#3498db] flex items-center justify-end gap-[5px] p-[3px]">
         <div
-          onClick={emptyCart}
+          onClick={handleVoidCustomer}
           className="max-w-[100px] rounded-[6px] flex flex-col cursor-pointer items-center justify-center gap-[5px] w-[80px] h-[45px] bg-[#ffffffc7]"
         >
           <TiCancel className="text-[20px]" />

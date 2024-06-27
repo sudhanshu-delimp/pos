@@ -20,7 +20,6 @@ function Sidebar() {
   const { setCustomerModal } = useContext(AppContext);
   const { isEmpty, items, cartTotal, totalItems, emptyCart } = useCart();
 
-  console.log("isEmpty", isEmpty);
 
   const createOrder = async () => {
     if (customer?.id) {
@@ -39,14 +38,15 @@ function Sidebar() {
       };
       try {
         setLoading(true);
+        const popupWindow = window.open("", "Popup", "width=600,height=700");
         const response = await OrderServices.createOrderApi(payload);
-        console.log("orderIdresponse" ,response)
         const orderId = response.id
-        window.open(`${process.env.REACT_APP_TERMINAL_URL}?orderId=${orderId}`, "Popup", "width=970,height=1040");
-        notifySuccess("Order created successfully");
+        setLoading(false);
+        notifySuccess("Order created successfully TK");
         emptyCart();
         dispatch(saveCustomer(""));
-        setLoading(false);
+        popupWindow.location.href = `${process.env.REACT_APP_TERMINAL_URL}?orderId=${orderId}`;
+        // window.open(`${process.env.REACT_APP_TERMINAL_URL}?orderId=${orderId}`, "Popup", "width=600,height=700");
       } catch (error) {
         const errorMessage = catchError(error);
         setLoading(false);
