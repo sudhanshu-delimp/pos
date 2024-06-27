@@ -11,6 +11,8 @@
 .addcustomer_container .form_container form input:focus{
     border: none;
     outline: none;
+
+
 }
 .addcustomer_container .form_container form select{
     box-shadow: 0px 0px 2px #00000030;
@@ -35,15 +37,16 @@
 	position: fixed;
     right: 0;
     bottom: 0;
-    width: 73.1%;
+    width: 65.3%;
     color: white;
     text-align: center;
 }
+
 .add__to_cart_container .grid {
     position: fixed;
     left: 0;
     bottom: 0;
-    width: 26.6%;
+    width: 34.5%;
     color: white;
     text-align: center;
 }
@@ -51,16 +54,19 @@
 .ccc::-webkit-scrollbar {
     display: none; 
   }
+
   .grid--container{
     -ms-overflow-style: none;
     scrollbar-width: none;
     overflow-y: scroll;
     max-height: calc(100vh - 5rem);
   }
+
   .grid--container{
     -ms-overflow-style: none;  
     scrollbar-width: none;
   }
+
   .grid--container::-webkit-scrollbar{
     display: none;
   }
@@ -68,20 +74,25 @@
   .add_customer form select{
     border-bottom: 1px solid #8080802b;
   }
+
   .add_customer form select:focus{
     border: none;
     outline: none;
   }
+
   .add_customer form input{
     border-bottom: 1px solid #8080802b;
   }
+
   .add_customer form input:focus{
     border: none;
     outline: none;
   }
+
   .add_customer form input::placeholder{
     color: #000000;
   }
+
   input#table-search:focus {
     border: none;
     outline: none;
@@ -91,14 +102,17 @@
     max-height: 350px;
     overflow-y: scroll;
 }
+
 .tbody_scroll::-webkit-scrollbar{
     display: none;
 }
+
 .addcustomer_container{
   overflow-y: scroll;
-  max-height: calc(100vh - 10rem);
+  max-height: calc(100vh - 32rem);
   padding: 3px;
 }
+
 .addcustomer_container::-webkit-scrollbar{
   display: none;
 }
@@ -106,6 +120,7 @@
 .container--login{
   box-shadow: 0px 0px 2px #00000030;
 }
+
 .container--login form input{
   box-shadow: 0px 0px 2px #00000030;
 }
@@ -118,13 +133,16 @@
 .list_item_container{
   box-shadow: 0px 0px 2px #00000030;
 }
+
 .listing_container{
   display: flex;
   gap: 10px;
 }
+
 .listing_container .list_item_table_container .search_box_container{
   box-shadow: 0px 0px 2px #00000030;
 }
+
 .listing_container .list_item_table_container .search_box_container input:focus{
   border: none;
   outline: none;

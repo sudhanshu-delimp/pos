@@ -1,18 +1,15 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { useCart } from 'react-use-cart';
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { useCart } from "react-use-cart";
 import { TiCancel } from "react-icons/ti";
 import { MdMoreHoriz } from "react-icons/md";
-import CustomerModal from '../Pages/Customer/CustomerModal';
-import { AppContext } from '../context/AppContext';
-
-
+import CustomerModal from "../Pages/Customer/CustomerModal";
+import { AppContext } from "../context/AppContext";
 
 function Header() {
   const { emptyCart } = useCart();
   const dropdownRef = useRef(null);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const { customerModal, setCustomerModal } = useContext(AppContext);
-
 
   const toggleDropdown = () => {
     setDropdownVisible((prev) => !prev);
@@ -35,10 +32,9 @@ function Header() {
     };
   }, []);
 
-
   return (
     <>
-      <div className="box--container m-w-[300px] bg-[#3498db] flex items-center justify-end gap-[5px] p-2">
+      <div className="box--container m-w-[300px] bg-[#3498db] flex items-center justify-end gap-[5px] p-[3px]">
         <div
           onClick={emptyCart}
           className="max-w-[100px] rounded-[6px] flex flex-col cursor-pointer items-center justify-center gap-[5px] w-[80px] h-[45px] bg-[#ffffffc7]"
@@ -69,11 +65,9 @@ function Header() {
           )}
         </div>
       </div>
-      {customerModal &&
-        < CustomerModal />
-      }
+      {customerModal && <CustomerModal />}
     </>
-  )
+  );
 }
 
-export default Header
+export default Header;
