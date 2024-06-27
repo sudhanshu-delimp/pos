@@ -7,9 +7,9 @@ function PrivateRoute({ children, roles }) {
     const { accessToken, user } = useSelector((state) => state.auth);
     // const authenticated = user && roles.includes(user?.role) ? true : false;
 
-    // if (!accessToken) {
-    //     return <Navigate to="/login" replace />;
-    // }
+    if (!accessToken) {
+        return <Navigate to="/login" replace />;
+    }
 
     // else if (accessToken && !authenticated) {
     //     return (

@@ -2,13 +2,20 @@ import React, { useState, useRef, useContext } from "react";
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 import { AppContext } from "../../context/AppContext";
+import { notifyError, notifySuccess } from "../../utils/toast";
+import useUtilsFunction from "../../hooks/useUtilsFunction";
+import CustomerServices from "../../services/CutomerServices";
+
 
 
 const Addcustomer = () => {
   const [isShippingAddress, setShowShippingAddress] = useState(false)
   const [billingAddress, setBillingAddress] = useState("")
   const [shippingAddress, setShippingAddress] = useState("")
-  const { addCustomer, setAddCustomer } = useContext(AppContext);
+  const { setAddCustomer, setIsUpdate } = useContext(AppContext);
+  const [isLoading, setLoading] = useState(false);
+  const { catchError } = useUtilsFunction();
+
 
   const [user, setUser] = useState({
     email: "",
@@ -31,7 +38,7 @@ const Addcustomer = () => {
       country: "",
       email: "",
       phone: ""
-    },
+    }
   )
 
   const [shipping, setShipping] = useState({
@@ -61,6 +68,10 @@ const Addcustomer = () => {
       ...prevUser,
       [name]: value
     }));
+    setBilling(prevUser => ({
+      ...prevUser,
+      [name]: value
+    }));
   };
 
   const handleShippingChange = (e) => {
@@ -72,30 +83,152 @@ const Addcustomer = () => {
   };
 
 
+  function checkDigitValue(value) {
+    if (/^\d+$/.test(value)) {
+      setBilling(prevUser => ({
+        ...prevUser,
+        postcode: value
+      }));
+      return true
+    } else {
+      setBilling(prevUser => ({
+        ...prevUser,
+        state: value
+      }));
+      return false
+    }
+  }
+
   const selectBillingAddress = (address) => {
-    console.log("value", address)
     setBillingAddress(address)
+    console.log("Fulllladdress", address)
+    const fullAddress = address?.label || ""
     const formatedAddress = address?.value?.terms
-    const countryName = formatedAddress?.pop()?.value
-    const stateName = formatedAddress?.pop()?.value
+    const countryName = formatedAddress?.pop()?.value || ""
+    const strValue = formatedAddress?.pop()?.value || ""
+
+    if (checkDigitValue(strValue)) {
+      const stateName = formatedAddress?.pop()?.value || ""
+      setBilling(prevUser => ({
+        ...prevUser,
+        postcode: strValue,
+        state: stateName
+      }));
+    }
+
+    else {
+      setBilling(prevUser => ({
+        ...prevUser,
+        state: strValue,
+        postcode: "",
+      }));
+    }
+
+    const cityName = formatedAddress?.pop()?.value || ""
+
     setBilling(prevUser => ({
       ...prevUser,
+      address_1: fullAddress,
       country: countryName,
-      state: stateName
+      city: cityName
     }));
   }
 
 
   const selectShippingAddress = (address) => {
     setShippingAddress(address)
+    const fullAddress = address?.label || ""
     const formatedAddress = address?.value?.terms
-    const countryName = formatedAddress?.pop()?.value
-    const stateName = formatedAddress?.pop()?.value
+    const countryName = formatedAddress?.pop()?.value || ""
+    const strValue = formatedAddress?.pop()?.value || ""
+
+    if (checkDigitValue(strValue)) {
+      const stateName = formatedAddress?.pop()?.value || ""
+      setShipping(prevUser => ({
+        ...prevUser,
+        postcode: strValue,
+        state: stateName
+      }));
+    }
+
+    else {
+      setShipping(prevUser => ({
+        ...prevUser,
+        state: strValue,
+        postcode: "",
+      }));
+    }
+    const cityName = formatedAddress?.pop()?.value || ""
     setShipping(prevUser => ({
       ...prevUser,
+      address_1: fullAddress,
       country: countryName,
-      state: stateName
+      city: cityName
     }));
+  }
+
+  const resetFormData = () => {
+    setUser(
+      {
+        email: "",
+        first_name: "",
+        last_name: "",
+        username: "",
+        phone: ""
+      }
+    )
+    setBilling(
+      {
+        first_name: "",
+        last_name: "",
+        company: "",
+        address_1: "",
+        address_2: "",
+        city: "",
+        state: "",
+        postcode: "",
+        country: "",
+        email: "",
+        phone: ""
+      },
+    )
+    setShipping({
+      first_name: "",
+      last_name: "",
+      company: "",
+      address_1: "",
+      address_2: "",
+      city: "",
+      state: "",
+      postcode: "",
+      country: "",
+    })
+
+    setShowShippingAddress(false)
+    setBillingAddress("")
+    setShippingAddress("")
+
+  }
+
+  const handleSubmit = async () => {
+    let payload = {
+      ...user,
+      username: `${user.first_name} ${user.last_name} `,
+      billing: { ...billing },
+      shipping: isShippingAddress ? { ...shipping } : { ...billing }
+    };
+    try {
+      setLoading(true);
+      const response = await CustomerServices.addCustomerApi(payload);
+      notifySuccess("Customer created successfully")
+      setIsUpdate(true);
+      resetFormData();
+      setLoading(false);
+    } catch (error) {
+      const errorMessage = catchError(error);
+      setLoading(false);
+      notifyError(errorMessage);
+    }
   }
 
 
@@ -110,8 +243,8 @@ const Addcustomer = () => {
           Back
         </button>
         <h3>Create new customer</h3>
-        <button className="bg-[#3498db] text-white px-4 py-2 rounded mb-4">
-          Save
+        <button type="button" onClick={handleSubmit} className="bg-[#3498db] text-white px-4 py-2 rounded mb-4">
+          {isLoading ? "Processing" : "Save"}
         </button>
       </div>
       <div className="addcustomer_container m-auto">
@@ -121,6 +254,7 @@ const Addcustomer = () => {
               <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-[10px]">
                 <input
                   type="text"
+                  required
                   name="first_name"
                   value={user.first_name}
                   onChange={handleUserChange}
@@ -130,6 +264,7 @@ const Addcustomer = () => {
                 <input
                   type="text"
                   name="last_name"
+                  required
                   value={user.last_name}
                   onChange={handleUserChange}
                   placeholder="Last Name"
@@ -138,8 +273,9 @@ const Addcustomer = () => {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-[10px] mt-3">
                 <input
-                  type="tel"
+                  type="number"
                   name="phone"
+                  required
                   value={user.phone}
                   onChange={handleUserChange}
                   placeholder="Phone"
@@ -148,13 +284,14 @@ const Addcustomer = () => {
                 <input
                   type="email"
                   name="email"
+                  required
                   value={user.email}
                   onChange={handleUserChange}
                   placeholder="Email"
                   className="px-5 py-3 mt-3"
                 />
               </div>
-              <div className=" mt-3">
+              <div className="mt-3">
                 <GooglePlacesAutocomplete
                   apiKey={process.env.REACT_APP_GOOGLE_API_KEY}
                   selectProps={{
@@ -169,6 +306,7 @@ const Addcustomer = () => {
                 <input
                   type="text"
                   name="country"
+                  required
                   value={billing.country}
                   onChange={handleBillingChange}
                   placeholder="Country"
@@ -177,6 +315,7 @@ const Addcustomer = () => {
                 <input
                   type="text"
                   name="state"
+                  required
                   value={billing.state}
                   onChange={handleBillingChange}
                   placeholder="State"
@@ -185,6 +324,7 @@ const Addcustomer = () => {
                 <input
                   type="text"
                   name="postcode"
+                  required
                   value={billing.postcode}
                   onChange={handleBillingChange}
                   placeholder="Zip"

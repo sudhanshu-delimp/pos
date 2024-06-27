@@ -25,15 +25,10 @@ const useAsync = (asyncFunction) => {
             try {
                 setLoading(true);
                 const response = await asyncFunction({ cancelToken: source.token });
+                console.log("response", response)
                 setLoading(false);
-                if (response.status === 200 && !unmounted) {
-                    setError("");
-                    setData(response?.data);
-                }
-                else {
-                    notifyError(response.message);
-                    setError(response.message)
-                }
+                setError("");
+                setData(response);
             }
             catch (error) {
                 if (!unmounted) {

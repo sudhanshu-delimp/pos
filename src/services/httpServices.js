@@ -1,5 +1,6 @@
 import axios from 'axios';
-import Cookies from 'js-cookie';
+import store from '../redux/store';
+
 
 let api_url = `${process.env.REACT_APP_BASEURL}`
 
@@ -14,16 +15,13 @@ const instance = axios.create({
 
 // Add a request interceptor
 instance.interceptors.request.use(function (config) {
-  // Do something before request is sent
-  let userInfo;
-  if (Cookies.get('userInfo')) {
-    userInfo = JSON.parse(Cookies.get('userInfo'));
-  }
+
+  let jwtToken = store.getState().auth.accessToken;
 
   return {
     ...config,
     headers: {
-      authorization: userInfo ? `Bearer ${userInfo.token}` : null,
+      authorization: jwtToken ? `Bearer ${jwtToken}` : null,
     },
   };
 });

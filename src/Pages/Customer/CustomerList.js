@@ -1,9 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import CustomerModal from './CustomerModal';
+import CustomerServices from "../../services/CutomerServices";
+import useAsync from './../../hooks/useAsync';
 
 const CustomerList = () => {
     const { setAddCustomer, setCustomerModal } = useContext(AppContext);
+    const { data, loading, error } = useAsync(() => CustomerServices.getCustomerListApi());
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value);
+    };
+
+    const filteredData = data ? data.filter(item => 
+        item.first_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.last_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item?.billing?.phone.toLowerCase().includes(searchQuery.toLowerCase())
+    ) : [];
 
     return (
         <>
@@ -56,55 +70,37 @@ const CustomerList = () => {
                             <input
                                 type="text"
                                 id="table-search"
-                                className="block pt-2 pb-2 ps-10 text-sm text-gray-900 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[100%] search_customer"
-                                placeholder="Search for items"
+                                className="block pt-2 pb-2 ps-10 text-sm text-gray-900 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[100%] search_customer"
+                                placeholder="Search"
+                                value={searchQuery}
+                                onChange={handleSearchChange}
                             />
                         </div>
                     </div>
                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <tbody>
-                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <td className="px-6 py-4 text-[#000]">A customer</td>
-                                <td className="px-6 py-4 text-[#000] text-right ">
-                                    54154555
-                                </td>
-                            </tr>
-                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <td className="px-6 py-4 text-[#000]">A customer</td>
-                                <td className="px-6 py-4 text-[#000] text-right">
-                                    54154555
-                                </td>
-                            </tr>
-                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <td className="px-6 py-4 text-[#000]">A customer</td>
-                                <td className="px-6 py-4 text-[#000] text-right">
-                                    54154555
-                                </td>
-                            </tr>
-                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <td className="px-6 py-4 text-[#000]">A customer</td>
-                                <td className="px-6 py-4 text-[#000] text-right">
-                                    54154555
-                                </td>
-                            </tr>
-                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <td className="px-6 py-4 text-[#000]">A customer</td>
-                                <td className="px-6 py-4 text-[#000] text-right">
-                                    54154555
-                                </td>
-                            </tr>
-                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <td className="px-6 py-4 text-[#000]">A customer</td>
-                                <td className="px-6 py-4 text-[#000] text-right">
-                                    54154555
-                                </td>
-                            </tr>
+                            {filteredData && filteredData.length > 0 ? (
+                                filteredData.map((item, index) => (
+                                    <tr key={index + 1} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                        <td className="px-6 py-4 text-[#000]">{`${item.first_name} ${item.last_name}`}</td>
+                                        <td className="px-6 py-4 text-[#000] text-right">
+                                            {item?.billing?.phone}
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="2" className="px-6 py-4 text-[#000] text-center">
+                                        No results found
+                                    </td>
+                                </tr>
+                            )}
                         </tbody>
                     </table>
                 </div>
             </div>
         </>
-    )
+    );
 }
 
-export default CustomerList
+export default CustomerList;

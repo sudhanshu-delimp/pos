@@ -3,10 +3,17 @@ import productData from "../../utils/products";
 import lock from "../../assets/images/lock.svg";
 import useAddToCart from "../../hooks/useAddToCart";
 import { notifyError } from "../../utils/toast";
+import useAsync from './../../hooks/useAsync';
+import ProductServices from "../../services/ProductServices";
 
 
 const Products = () => {
   const { handleAddItem } = useAddToCart();
+  const { data, loading, error } = useAsync(() => ProductServices.getAllProducts());
+
+
+
+
   const handleAddToCart = (product) => {
     if (product.stock <= 0) {
       notifyError("Insufficient stock");

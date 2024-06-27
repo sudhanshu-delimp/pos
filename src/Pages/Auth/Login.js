@@ -19,8 +19,8 @@ const Login = () => {
 
   const formik = useFormik({
     initialValues: {
-      username: "",
-      password: "",
+      username: "admin",
+      password: "admin@123",
     },
     validationSchema: Yup.object({
       username: Yup.string().required("Username is required"),
@@ -96,7 +96,7 @@ const Login = () => {
               <span className="text-danger">{formik.errors.password}</span>
             ) : null}
           </div>
-          <div className="py-5">
+          {/* <div className="py-5">
             <input
               type="checkbox"
               className="form-check-input"
@@ -107,7 +107,7 @@ const Login = () => {
             <label className="form-check-label ml-1" htmlFor="rememberMe">
               Remember Me
             </label>
-          </div>
+          </div> */}
           <button
             type="submit"
             className="w-[100%] bg-[#3498db] py-2 px-3 mt-3 rounded-[6px] text-[#ffffff]"

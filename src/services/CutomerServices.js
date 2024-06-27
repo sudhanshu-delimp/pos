@@ -1,6 +1,15 @@
 import requests from "./httpServices";
 
 const CustomerServices = {
+
+  addCustomerApi: async (body) => {
+    return requests.post("/wc/v3/customers", body);
+  },
+
+  getCustomerListApi: async (body) => {
+    return requests.get("/wc/v3/customers", body);
+  },
+
   customerLogin: async (body) => {
     return requests.post("/customer/login", body);
   },
@@ -11,10 +20,6 @@ const CustomerServices = {
 
   registerCustomer: async (body) => {
     return requests.post('/customer/register', body);
-  },
-
-  signUpWithProvider(token, body) {
-    return requests.post(`/customer/signup/${token}`, body);
   },
 
   forgetPassword: async (body) => {
