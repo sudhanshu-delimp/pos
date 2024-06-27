@@ -1,17 +1,17 @@
 import React, { useContext } from "react";
 import lock from "../../assets/images/lock.svg";
 import useAddToCart from "../../hooks/useAddToCart";
-import useAsync from './../../hooks/useAsync';
+import useAsync from "./../../hooks/useAsync";
 import ProductServices from "../../services/ProductServices";
 import { useSelector } from "react-redux";
 import { AppContext } from "../../context/AppContext";
 
-
-
 const Products = () => {
   const { handleAddItem } = useAddToCart();
-  const { data, loading, error } = useAsync(() => ProductServices.getAllProducts());
-  const { customer } = useSelector(state => state.app)
+  const { data, loading, error } = useAsync(() =>
+    ProductServices.getAllProducts()
+  );
+  const { customer } = useSelector((state) => state.app);
   const { setCustomerModal } = useContext(AppContext);
 
   const handleAddToCart = (product) => {
@@ -20,14 +20,15 @@ const Products = () => {
         id: product.id,
         title: product.name,
         image: product.images[0]?.src,
-        price: product.sale_price ? parseInt(product.sale_price) : parseInt(product.regular_price),
+        price: product.sale_price
+          ? parseInt(product.sale_price)
+          : parseInt(product.regular_price),
         originalPrice: parseInt(product.regular_price),
-        status: product.status
+        status: product.status,
       };
       handleAddItem(newItem);
-    }
-    else {
-      setCustomerModal(true)
+    } else {
+      setCustomerModal(true);
     }
   };
 
@@ -40,7 +41,10 @@ const Products = () => {
             className="items bg-gray-100 rounded-[9px] p-3 pb-6"
           >
             <div className="images--container">
-              <img src={item.images[0]?.src} className="rounded-[9px] w-full" />
+              <img
+                src={item.images[0]?.src}
+                className="rounded-[9px] w-full w-[100%] h-[300px] object-cover max-w-[500px]"
+              />
             </div>
             <div className="content">
               <p className="pt-3 pb-1 text-left">{item.name}</p>
@@ -49,9 +53,9 @@ const Products = () => {
                   <h1 className="text-left text-[20px] font-bold">
                     {item.sale_price ? item.sale_price : item.regular_price}
                   </h1>
-                  {(parseInt(item.regular_price) > parseInt(item.sale_price)) &&
+                  {parseInt(item.regular_price) > parseInt(item.sale_price) && (
                     <p className="line-through">{item.regular_price}</p>
-                  }
+                  )}
                 </div>
                 <img
                   className="group-hover:grayscale cursor-pointer group-hover:brightness-[15] p-2 border h-auto self-end border-solid rounded-md border-gray-300"

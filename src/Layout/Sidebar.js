@@ -6,28 +6,28 @@ import { useSelector } from "react-redux";
 import { notifySuccess, notifyError } from "../utils/toast";
 import OrderServices from "../services/OrderServices";
 import useUtilsFunction from "../hooks/useUtilsFunction";
-import { saveCustomer } from '../redux/reducers/appSlice';
-import { useDispatch } from 'react-redux';
+import { saveCustomer } from "../redux/reducers/appSlice";
+import { useDispatch } from "react-redux";
 import { AppContext } from "../context/AppContext";
-
 
 function Sidebar() {
   const dispatch = useDispatch();
   const { updateItemQuantity, removeItem } = useCart();
   const { handleIncreaseQuantity } = useAddToCart();
-  const { customer } = useSelector(state => state.app)
-  const [loading, setLoading] = useState(false)
+  const { customer } = useSelector((state) => state.app);
+  const [loading, setLoading] = useState(false);
   const { catchError } = useUtilsFunction();
   const { setCustomerModal } = useContext(AppContext);
   const { isEmpty, items, cartTotal, totalItems, emptyCart } = useCart();
 
-
-  console.log("isEmpty", isEmpty)
-
+  console.log("isEmpty", isEmpty);
 
   const createOrder = async () => {
     if (customer?.id) {
-      const cartItems = items.map(item => ({ product_id: item.id, quantity: item.quantity }))
+      const cartItems = items.map((item) => ({
+        product_id: item.id,
+        quantity: item.quantity,
+      }));
       let payload = {
         payment_method: "delimpterminal",
         payment_method_title: "Terminal",
@@ -35,30 +35,33 @@ function Sidebar() {
         customer_id: customer.id,
         billing: customer.billing,
         shipping: customer.shipping,
-        line_items: cartItems
+        line_items: cartItems,
       };
       try {
         setLoading(true);
         const response = await OrderServices.createOrderApi(payload);
-        notifySuccess("Order created successfully")
+        notifySuccess("Order created successfully");
         emptyCart();
-        dispatch(saveCustomer(""))
+        dispatch(saveCustomer(""));
         setLoading(false);
       } catch (error) {
         const errorMessage = catchError(error);
         setLoading(false);
         notifyError(errorMessage);
       }
+    } else {
+      setCustomerModal(true);
     }
-    else {
-      setCustomerModal(true)
-    }
-  }
+  };
 
   return (
     <div className="add__to_cart_container pr-3 pl-3 shadow-md relative flex flex-col gap-[15px] w-[50rem]">
       <div className="p-2 mt-1">
-        {customer?.first_name && <h4 className="text-blue-700 font-bold">{customer.first_name}</h4>}
+        {customer?.first_name && (
+          <h4 className="text-blue-700 font-bold text-center">
+            {customer.first_name}
+          </h4>
+        )}
       </div>
       <div className="ccc">
         {items?.length > 0 &&
@@ -108,10 +111,11 @@ function Sidebar() {
 
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 bg-[#3498db] p-2 h-[50px]  absolute bottom-0 sm:bottom-4 md:bottom-3 lg:bottom-0">
         <h1 className=" text-[20px] cursor-pointer font-bold text-right mt-1">
-          {cartTotal > 0 && <span onClick={createOrder}>
-            {loading ? "Processing" : "Checkout"}  ${cartTotal?.toFixed(2)}
-          </span>
-          }
+          {cartTotal > 0 && (
+            <span onClick={createOrder}>
+              {loading ? "Processing" : "Checkout"} ${cartTotal?.toFixed(2)}
+            </span>
+          )}
         </h1>
       </div>
     </div>
