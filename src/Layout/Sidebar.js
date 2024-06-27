@@ -110,7 +110,7 @@ function Sidebar() {
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 bg-[#3498db] p-2 h-[50px]  absolute bottom-0 sm:bottom-4 md:bottom-3 lg:bottom-0">
-        <h1 className=" text-[20px] cursor-pointer font-bold text-right mt-1">
+        <h1 className=" text-[14px] cursor-pointer font-bold text-right mt-1">
           {cartTotal > 0 && (
             <span onClick={createOrder}>
               {loading ? "Processing" : "Checkout"} ${cartTotal?.toFixed(2)}
