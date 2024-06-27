@@ -1,7 +1,8 @@
 import React from "react";
 import { IoSearchOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
-const Listing = () => {
+const OrderList = () => {
   return (
     <>
       <div className="listing_container">
@@ -32,9 +33,11 @@ const Listing = () => {
 
         <div className="list_item_table_container w-[67%]">
           <div className="btn_container flex items-center justify-between py-2">
-            <button className="text-[#ffffff] bg-[#3498db] px-4 py-2 rounded-[4px]">
-              BACK
-            </button>
+            <Link to="/">
+              <button className="text-[#ffffff] bg-[#3498db] px-4 py-2 rounded-[4px]">
+                BACK
+              </button>
+            </Link>
             <button className="text-[#ffffff] bg-[#3498db] px-4 py-2 rounded-[4px]">
               MORE
             </button>
@@ -181,4 +184,4 @@ const Listing = () => {
   );
 };
 
-export default Listing;
+export default OrderList;
