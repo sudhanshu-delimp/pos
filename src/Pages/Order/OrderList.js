@@ -6,7 +6,7 @@ const OrderList = () => {
   return (
     <>
       <div className="listing_container">
-        <div className="list_item_container w-[30%] bg-[#ffffff] pt-1">
+        <div className="list_item_container w-[30%] bg-[#ffffff] pt-1 relative pb-[3rem]">
           <div className="flex items-center	justify-between px-2">
             <h1 className="text-[14px] uppercase">1</h1>
             <h1 className="text-[14px] uppercase">VOID</h1>
@@ -21,7 +21,7 @@ const OrderList = () => {
             </h2>
             <h2 className="text-[14px] text-[#765341]">SAR 120.00</h2>
           </div>
-          <div className="flex items-center	justify-between px-2 py-5 mt-2">
+          <div className="flex items-center	justify-between px-2 py-5 mt-2 absolute w-[100%] bottom-0">
             <h2 className="text-[14px] text-[#000000] uppercase font-bold">
               TOTAL
             </h2>
@@ -31,14 +31,14 @@ const OrderList = () => {
           </div>
         </div>
 
-        <div className="list_item_table_container w-[67%]">
+        <div className="list_item_table_container w-[70%]">
           <div className="btn_container flex items-center justify-between py-2">
             <Link to="/">
               <button className="text-[#ffffff] bg-[#3498db] px-4 py-2 rounded-[4px]">
                 BACK
               </button>
             </Link>
-            <button className="text-[#ffffff] bg-[#3498db] px-4 py-2 rounded-[4px]">
+            <button className="text-[#ffffff] bg-[#3498db] px-4 py-2 rounded-[4px] mr-3">
               MORE
             </button>
           </div>
@@ -54,12 +54,13 @@ const OrderList = () => {
             <table className="w-[100%] bg-[#ffffff] mt-2">
               <thead>
                 <tr>
-                  <th>ALL(117)</th>
-                  <th>ACTIVE</th>
-                  <th>PENDING</th>
-                  <th>AHEAD</th>
+                  <th className="text-left pt-3 pl-4">ALL(117)</th>
+                  <th className="text-left pt-3 font-semibold">ACTIVE</th>
+                  <th className="text-left pt-3 font-semibold">PENDING</th>
+                  <th className="text-left pt-3 font-semibold">AHEAD</th>
                 </tr>
               </thead>
+
               <tbody>
                 <tr>
                   <td className="py-10 px-5">
