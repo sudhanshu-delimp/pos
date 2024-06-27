@@ -40,6 +40,9 @@ function Sidebar() {
       try {
         setLoading(true);
         const response = await OrderServices.createOrderApi(payload);
+        console.log("orderIdresponse" ,response)
+        const orderId = response.id
+        window.open(`${process.env.REACT_APP_TERMINAL_URL}?orderId=${orderId}`, "Popup", "width=970,height=1040");
         notifySuccess("Order created successfully");
         emptyCart();
         dispatch(saveCustomer(""));
