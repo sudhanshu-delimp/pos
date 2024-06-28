@@ -7,7 +7,7 @@ const CustomerServices = {
   },
 
   getCustomerListApi: async (body) => {
-    return requests.get("/wc/v3/customers", body);
+    return requests.get("/wc/v3/customers?orderby=registered_date&order=desc&per_page=100&page=1", body);
   },
 
   customerLogin: async (body) => {

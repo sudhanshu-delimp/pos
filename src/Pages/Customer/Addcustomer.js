@@ -14,7 +14,7 @@ const Addcustomer = () => {
   const [isShippingAddress, setShowShippingAddress] = useState(false)
   const [billingAddress, setBillingAddress] = useState("")
   const [shippingAddress, setShippingAddress] = useState("")
-  const { setAddCustomer, setIsUpdate } = useContext(AppContext);
+  const { setAddCustomer, setIsUpdate ,setCustomerModal } = useContext(AppContext);
   const [isLoading, setLoading] = useState(false);
   const { catchError } = useUtilsFunction();
 
@@ -243,6 +243,7 @@ const Addcustomer = () => {
         }
         notifySuccess("Customer created successfully")
         setIsUpdate(true);
+        setCustomerModal(false)
         resetFormData();
         setLoading(false);
       } catch (error) {
