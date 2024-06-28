@@ -4,10 +4,13 @@ import { AppContext } from "../../context/AppContext";
 import { notifyError, notifySuccess } from "../../utils/toast";
 import useUtilsFunction from "../../hooks/useUtilsFunction";
 import CustomerServices from "../../services/CutomerServices";
+import { saveCustomer } from '../../redux/reducers/appSlice';
+import { useDispatch } from 'react-redux';
 
 
 
 const Addcustomer = () => {
+  const dispatch = useDispatch()
   const [isShippingAddress, setShowShippingAddress] = useState(false)
   const [billingAddress, setBillingAddress] = useState("")
   const [shippingAddress, setShippingAddress] = useState("")
@@ -202,7 +205,6 @@ const Addcustomer = () => {
       postcode: "",
       country: "",
     })
-
     setShowShippingAddress(false)
     setBillingAddress("")
     setShippingAddress("")
@@ -210,23 +212,44 @@ const Addcustomer = () => {
   }
 
   const handleSubmit = async () => {
-    let payload = {
-      ...user,
-      username: `${user.first_name} ${user.last_name} `,
-      billing: { ...billing },
-      shipping: isShippingAddress ? { ...shipping } : { ...billing }
-    };
-    try {
-      setLoading(true);
-      const response = await CustomerServices.addCustomerApi(payload);
-      notifySuccess("Customer created successfully")
-      setIsUpdate(true);
-      resetFormData();
-      setLoading(false);
-    } catch (error) {
-      const errorMessage = catchError(error);
-      setLoading(false);
-      notifyError(errorMessage);
+    if (!user.first_name) {
+      notifyError("First name is required")
+    }
+
+    else if (!user.last_name) {
+      notifyError("Last name is required")
+    }
+
+    else if (!user.email) {
+      notifyError("Email is Required")
+    }
+
+    else {
+      let payload = {
+        ...user,
+        username: `${user.first_name} ${user.last_name} `,
+        billing: { ...billing },
+        shipping: { ...billing }
+      };
+      if (shipping.first_name && shipping.last_name && shippingAddress) {
+        Object.assign(payload, { shipping: { ...shipping } })
+      }
+      try {
+        setLoading(true);
+        const response = await CustomerServices.addCustomerApi(payload);
+        console.log("CustomerResponse", response)
+        if (response.id) {
+          dispatch(saveCustomer(response))
+        }
+        notifySuccess("Customer created successfully")
+        setIsUpdate(true);
+        resetFormData();
+        setLoading(false);
+      } catch (error) {
+        const errorMessage = catchError(error);
+        setLoading(false);
+        notifyError(errorMessage);
+      }
     }
   }
 
@@ -249,6 +272,9 @@ const Addcustomer = () => {
       <div className="addcustomer_container m-auto">
         <div className="form_container max-w-[100%] m-auto">
           <div className="billing_address">
+            <h1 className="text-[16px] pb-3 text-[#000000]">
+              Billing Details
+            </h1>
             <form>
               <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-[10px]">
                 <input
@@ -257,7 +283,7 @@ const Addcustomer = () => {
                   name="first_name"
                   value={user.first_name}
                   onChange={handleUserChange}
-                  placeholder="First Name"
+                  placeholder="First Name*"
                   className="px-5 py-1 sm:py-1 md:py-1 lg:py-2"
                 />
                 <input
@@ -266,7 +292,7 @@ const Addcustomer = () => {
                   required
                   value={user.last_name}
                   onChange={handleUserChange}
-                  placeholder="Last Name"
+                  placeholder="Last Name*"
                   className="px-5 py-3"
                 />
               </div>
@@ -277,7 +303,7 @@ const Addcustomer = () => {
                   required
                   value={user.phone}
                   onChange={handleUserChange}
-                  placeholder="Phone"
+                  placeholder="Phone*"
                   className="px-5 py-3 mt-3"
                 />
                 <input
@@ -286,7 +312,7 @@ const Addcustomer = () => {
                   required
                   value={user.email}
                   onChange={handleUserChange}
-                  placeholder="Email"
+                  placeholder="Email*"
                   className="px-5 py-3 mt-3"
                 />
               </div>
@@ -355,7 +381,7 @@ const Addcustomer = () => {
             </form>
           </div>
           <div className="shipping_address">
-            <input onChange={(e) => setShowShippingAddress(e.target.checked)} type="checkbox" className="mt-5 cursor-pointer" />{" "}
+            <input onChange={(e) => setShowShippingAddress(e.target.checked)} checked={isShippingAddress} type="checkbox" className="mt-5 cursor-pointer" />{" "}
             <span className="text-[16px] pb-5 pt-5  text-[#00000082]">
               <span className="pt-1 pr-1"></span>
               Ship to a different address
@@ -396,7 +422,6 @@ const Addcustomer = () => {
                       className="px-5 py-3"
                     />
                   </div>
-
                   <div className=" mt-3">
                     <GooglePlacesAutocomplete
                       apiKey={process.env.REACT_APP_GOOGLE_API_KEY}
@@ -406,6 +431,17 @@ const Addcustomer = () => {
                         shippingAddress,
                         onChange: selectShippingAddress,
                       }}
+                    />
+                  </div>
+                  <div className="mt-3">
+                    <input
+                      type="text"
+                      name="address_2"
+                      required
+                      value={shipping.address_2}
+                      onChange={handleShippingChange}
+                      placeholder="Address 2"
+                      className="px-5 py-3"
                     />
                   </div>
                   <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-[10px]">

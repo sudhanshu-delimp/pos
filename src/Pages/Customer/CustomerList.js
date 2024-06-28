@@ -25,7 +25,7 @@ const CustomerList = () => {
 
       const handleSelectCustomer = (customer) => {
         dispatch(saveCustomer(customer))
-        notifySuccess("Customer Selected Successfully")
+        notifySuccess("Customer saved successfully")
         setCustomerModal(false)
       }
 

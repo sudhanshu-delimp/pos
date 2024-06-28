@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    customer: {}
+    customer: {},
+    shipping_required : false
 };
 
 export const appSlice = createSlice({

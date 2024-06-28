@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { RiDeleteBin5Line } from "react-icons/ri";
 import { useCart } from "react-use-cart";
 import useAddToCart from "../hooks/useAddToCart";
 import { useSelector } from "react-redux";
@@ -58,70 +57,59 @@ function Sidebar() {
   };
 
   return (
-    <div className="add__to_cart_container pr-3 pl-3 shadow-md relative flex flex-col gap-[15px] w-[50rem]">
-      <div className="p-2 mt-1">
-        {customer?.first_name && (
-          <h4 className="text-blue-700 font-bold text-center">
-            {customer.first_name}
-          </h4>
-        )}
-      </div>
-      <div className="ccc">
-        {items?.length > 0 &&
-          items?.map((item, index) => (
-            <div
-              key={index + 1}
-              className="cart--container flex items-centergap-[10px] bg-gray-100 p-2 rounded-[6px] mt-1 mb-2"
-            >
-              <div className="image--wrapper w-[30px] h-[30px] rounded-full outline outline-1 outline-offset-4 outline-gray-900">
-                <img src={item.image} className="rounded-full" />
-              </div>
-              <div className="add--item--content">
-                <div>
-                  <p className="text-left">{item.title}</p>
-                </div>
-                <div className="flex items-center">
-                  <span className="text-xs text-gray-400 mb-1">
-                    Item Price ${item.price}
-                  </span>
-                </div>
-                <div className="flex items-center">
-                  <h1 className="text-left text-[16px] font-bold">
-                    {" "}
-                    {item.itemTotal}
-                  </h1>
-                  <div className="flex gap-[20px] border border-gray-600 py-0 px-1 rounded-[5px] mx-5">
-                    <button
-                      onClick={() =>
-                        updateItemQuantity(item.id, item.quantity - 1)
-                      }
-                    >
-                      -
-                    </button>
-                    <p>{item.quantity}</p>
-                    <button onClick={() => handleIncreaseQuantity(item)}>
-                      +
-                    </button>
+    <aside
+      id="logo-sidebar"
+      className="fixed top-0 left-0 z-40 w-96 h-screen pt-16 pb-16 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+      aria-label="Sidebar"
+    >
+      <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
+        <ul className="space-y-2 font-medium">
+          {items?.length > 0 &&
+            items?.map((item, index) => (
+              <li key={index + 1} >
+                <a
+                  href="#"
+                  className="items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                >
+                  <div className="p-4 bg-white rounded-lg shadow-md">
+                    <div className="flex items-center">
+                      <img
+                        className="w-12 h-12 mr-4 rounded-full outline outline-1 outline-offset-4 outline-gray-300"
+                        src={item.image}
+                        alt="Product Image"
+                      />
+                      <div className="flex-1">
+                        <h3 className="font-semibold">
+                          {item.title}
+                        </h3>
+                        <p className="text-gray-500 text-xs">Item Price ${item.price}</p>
+                      </div>
+                    </div>
+                    <div className="mt-4 flex items-center">
+                      <span className="font-bold">${item.itemTotal}</span>
+                      <div className="flex ml-4">
+                        <button onClick={() => updateItemQuantity(item.id, item.quantity - 1)} className="bg-gray-300 text-gray-700 rounded-l px-3 py-1">
+                          -
+                        </button>
+                        <input
+                          type="number"
+                          readOnly
+                          className="w-12 text-center border-t border-b border-gray-300"
+                          value={item.quantity}
+                        />
+                        <button onClick={() => handleIncreaseQuantity(item)} className="bg-gray-300 text-gray-700 rounded-r px-3 py-1">
+                          +
+                        </button>
+                      </div>
+                      <button onClick={() => removeItem(item.id)} className="ml-4 bg-[#3498db] text-white rounded px-3 py-1">🗑</button>
+                    </div>
                   </div>
-                  <button onClick={() => removeItem(item.id)}>
-                    <RiDeleteBin5Line />
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
+                </a>
+              </li>
+            ))}
+        </ul>
       </div>
-
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 bg-[#3498db] p-2 h-[50px]  absolute bottom-0 sm:bottom-4 md:bottom-3 lg:bottom-0">
-        <h1 className=" text-[14px] cursor-pointer font-bold text-right mt-1">
-          {cartTotal > 0 && (
-            <span onClick={createOrder}>
-              {loading ? "Processing" : "Checkout"} ${cartTotal?.toFixed(2)}
-            </span>
-          )}
-        </h1>
-      </div>
-    </div>
+    </aside>
   );
 }
 

@@ -5,13 +5,11 @@ import Footer from "./Footer";
 
 const Layout = ({ children }) => {
     return (
-        <div className="flex">
+        <div >
             <Sidebar />
-            <div>
-                <Header />
-                {children}
-                <Footer />
-            </div>
+            <Header />
+            {children}
+            <Footer />
         </div>
     );
 };

@@ -115,6 +115,9 @@ function Test() {
                     </div>
                 </div>
             </nav>
+
+
+
             <aside
                 id="logo-sidebar"
                 className="fixed top-0 left-0 z-40 w-96 h-screen pt-16 pb-16 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
@@ -162,7 +165,6 @@ function Test() {
 
                             </a>
                         </li>
-
                         <li>
                             <a
                                 href="#"
@@ -200,7 +202,6 @@ function Test() {
                                         <button className="ml-4 bg-[#3498db] text-white rounded px-3 py-1">🗑</button>
                                     </div>
                                 </div>
-
                             </a>
                         </li>
 
@@ -241,7 +242,6 @@ function Test() {
                                         <button className="ml-4 bg-[#3498db] text-white rounded px-3 py-1">🗑</button>
                                     </div>
                                 </div>
-
                             </a>
                         </li>
 
@@ -330,6 +330,8 @@ function Test() {
                     </ul>
                 </div>
             </aside>
+
+
             <div className="p-4 sm:ml-96">
                 <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
                     <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
@@ -434,7 +436,6 @@ function Test() {
                                     src="/static/media/lock.5caf6f12a3990c557832ab6963c7d653.svg"
                                     alt="add-cart"
                                 />
-
                             </div>
                         </div>
                     </div>
