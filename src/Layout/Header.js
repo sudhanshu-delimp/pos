@@ -1,16 +1,17 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useCart } from "react-use-cart";
-import { TiCancel } from "react-icons/ti";
-import { MdMoreHoriz } from "react-icons/md";
 import CustomerModal from "../Pages/Customer/CustomerModal";
 import { AppContext } from "../context/AppContext";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { saveCustomer } from "../redux/reducers/appSlice";
 import { CgMoreVerticalO } from "react-icons/cg";
+import { logout } from "../redux/reducers/authSlice";
+
 
 function Header() {
   const dispatch = useDispatch()
   const { emptyCart } = useCart();
+  const { customer } = useSelector((state) => state.app);
   const dropdownRef = useRef(null);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const { customerModal, setCustomerModal } = useContext(AppContext);
@@ -39,7 +40,6 @@ function Header() {
   const handleVoidCustomer = () => {
     dispatch(saveCustomer(""));
     emptyCart();
-
   }
 
   return (
@@ -70,16 +70,14 @@ function Header() {
                   />
                 </svg>
               </button>
-              <a href="#" className="flex ms-2 md:me-24">
-
-                <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
-                  AppHo sma
+              {customer.first_name &&
+                <span onClick={() => setCustomerModal(true)} className="flex cursor-pointer ms-2 md:me-24">
+                  <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white text-white">
+                    {`${customer.first_name} ${customer.last_name}`}
+                  </span>
                 </span>
-              </a>
+              }
             </div>
-
-
-
             <div className="flex items-center">
               <div className="items-center ms-3 relative">
                 <div>
@@ -94,54 +92,53 @@ function Header() {
                     <span className="w-8 h-8 rounded-full text-white text-3xl">
                       <CgMoreVerticalO />
                     </span>
-
                   </button>
                 </div>
-                
+
                 {dropdownVisible &&
-                <div
-                  className="z-50 absolute right-0 transition duration-150-0 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
-                  id="dropdown-user"
-                >
-                  
-                  <ul className="py-1 w-[180px]" role="none">
-                    
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600"
-                        role="menuitem"
-                      >
-                        Create Customer
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600"
-                        role="menuitem"
-                      >
-                        Orders
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600"
-                        role="menuitem"
-                      >
-                        Sign out
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+                  <div
+                    className="z-50 absolute right-0 transition duration-150-0 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
+                    id="dropdown-user"
+                  >
+                    <ul className="py-1 w-[180px]" role="none">
+                      <li>
+                        <span
+                          onClick={() => setCustomerModal(true)}
+                          className="block px-4 py-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600"
+                          role="menuitem"
+                        >
+                          Create Customer
+                        </span>
+                      </li>
+                      {/* <li>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600"
+                          role="menuitem"
+                        >
+                          Orders
+                        </a>
+                      </li> */}
+                      <li>
+                        <span
+                          onClick={() => dispatch(logout())}
+                          className="block cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600"
+                          role="menuitem"
+                        >
+                          Sign out
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
                 }
               </div>
             </div>
           </div>
         </div>
       </nav>
+      {customerModal && <CustomerModal />}
     </>
+
   );
 }
 

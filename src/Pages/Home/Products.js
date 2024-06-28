@@ -21,6 +21,7 @@ const Products = () => {
                 : parseInt(product.regular_price),
             originalPrice: parseInt(product.regular_price),
             status: product.status,
+            shipping_required: product.shipping_required
         };
         handleAddItem(newItem);
     };

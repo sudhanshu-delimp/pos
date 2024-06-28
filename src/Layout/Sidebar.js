@@ -1,115 +1,69 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import { useCart } from "react-use-cart";
 import useAddToCart from "../hooks/useAddToCart";
-import { useSelector } from "react-redux";
-import { notifySuccess, notifyError } from "../utils/toast";
-import OrderServices from "../services/OrderServices";
-import useUtilsFunction from "../hooks/useUtilsFunction";
-import { saveCustomer } from "../redux/reducers/appSlice";
-import { useDispatch } from "react-redux";
-import { AppContext } from "../context/AppContext";
 
 function Sidebar() {
-  const dispatch = useDispatch();
   const { updateItemQuantity, removeItem } = useCart();
   const { handleIncreaseQuantity } = useAddToCart();
-  const { customer } = useSelector((state) => state.app);
-  const [loading, setLoading] = useState(false);
-  const { catchError } = useUtilsFunction();
-  const { setCustomerModal } = useContext(AppContext);
-  const { isEmpty, items, cartTotal, totalItems, emptyCart } = useCart();
+  const { items, cartTotal, } = useCart();
 
-
-  const createOrder = async () => {
-    if (customer?.id) {
-      const cartItems = items.map((item) => ({
-        product_id: item.id,
-        quantity: item.quantity,
-      }));
-      let payload = {
-        payment_method: "delimpterminal",
-        payment_method_title: "Terminal",
-        set_paid: false,
-        customer_id: customer.id,
-        billing: customer.billing,
-        shipping: customer.shipping,
-        line_items: cartItems,
-      };
-      try {
-        setLoading(true);
-        const popupWindow = window.open("", "Popup", "width=600,height=700");
-        const response = await OrderServices.createOrderApi(payload);
-        const orderId = response.id
-        setLoading(false);
-        notifySuccess("Order created successfully TK");
-        emptyCart();
-        dispatch(saveCustomer(""));
-        popupWindow.location.href = `${process.env.REACT_APP_TERMINAL_URL}?orderId=${orderId}`;
-        // window.open(`${process.env.REACT_APP_TERMINAL_URL}?orderId=${orderId}`, "Popup", "width=600,height=700");
-      } catch (error) {
-        const errorMessage = catchError(error);
-        setLoading(false);
-        notifyError(errorMessage);
-      }
-    } else {
-      setCustomerModal(true);
-    }
-  };
 
   return (
-    <aside
-      id="logo-sidebar"
-      className="fixed top-0 left-0 z-40 w-96 h-screen pt-16 pb-16 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
-      aria-label="Sidebar"
-    >
-      <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
-        <ul className="space-y-2 font-medium">
-          {items?.length > 0 &&
-            items?.map((item, index) => (
-              <li key={index + 1} >
-                <a
-                  href="#"
-                  className="items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                >
-                  <div className="p-4 bg-white rounded-lg shadow-md">
-                    <div className="flex items-center">
-                      <img
-                        className="w-12 h-12 mr-4 rounded-full outline outline-1 outline-offset-4 outline-gray-300"
-                        src={item.image}
-                        alt="Product Image"
-                      />
-                      <div className="flex-1">
-                        <h3 className="font-semibold">
-                          {item.title}
-                        </h3>
-                        <p className="text-gray-500 text-xs">Item Price ${item.price}</p>
-                      </div>
-                    </div>
-                    <div className="mt-4 flex items-center">
-                      <span className="font-bold">${item.itemTotal}</span>
-                      <div className="flex ml-4">
-                        <button onClick={() => updateItemQuantity(item.id, item.quantity - 1)} className="bg-gray-300 text-gray-700 rounded-l px-3 py-1">
-                          -
-                        </button>
-                        <input
-                          type="number"
-                          readOnly
-                          className="w-12 text-center border-t border-b border-gray-300"
-                          value={item.quantity}
+    <>
+      <aside
+        id="logo-sidebar"
+        className="fixed top-0 left-0 z-40 w-96 h-screen pt-16 pb-16 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+        aria-label="Sidebar"
+      >
+        <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
+          <ul className="space-y-2 font-medium">
+            {items?.length > 0 &&
+              items?.map((item, index) => (
+                <li key={index + 1} >
+                  <a
+                    href="#"
+                    className="items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                  >
+                    <div className="p-4 bg-white rounded-lg shadow-md">
+                      <div className="flex items-center">
+                        <img
+                          className="w-12 h-12 mr-4 rounded-full outline outline-1 outline-offset-4 outline-gray-300"
+                          src={item.image}
+                          alt="Product Image"
                         />
-                        <button onClick={() => handleIncreaseQuantity(item)} className="bg-gray-300 text-gray-700 rounded-r px-3 py-1">
-                          +
-                        </button>
+                        <div className="flex-1">
+                          <h3 className="font-semibold">
+                            {item.title}
+                          </h3>
+                          <p className="text-gray-500 text-xs">Item Price ${item.price}</p>
+                        </div>
                       </div>
-                      <button onClick={() => removeItem(item.id)} className="ml-4 bg-[#3498db] text-white rounded px-3 py-1">🗑</button>
+                      <div className="mt-4 flex items-center">
+                        <span className="font-bold">${item.itemTotal}</span>
+                        <div className="flex ml-4">
+                          <button onClick={() => updateItemQuantity(item.id, item.quantity - 1)} className="bg-gray-300 text-gray-700 rounded-l px-3 py-1">
+                            -
+                          </button>
+                          <input
+                            type="number"
+                            readOnly
+                            className="w-12 text-center border-t border-b border-gray-300"
+                            value={item.quantity}
+                          />
+                          <button onClick={() => handleIncreaseQuantity(item)} className="bg-gray-300 text-gray-700 rounded-r px-3 py-1">
+                            +
+                          </button>
+                        </div>
+                        <button onClick={() => removeItem(item.id)} className="ml-4 bg-[#3498db] text-white rounded px-3 py-1">🗑</button>
+                      </div>
                     </div>
-                  </div>
-                </a>
-              </li>
-            ))}
-        </ul>
-      </div>
-    </aside>
+                  </a>
+                </li>
+              ))}
+          </ul>
+        </div>
+      </aside>
+    </>
   );
 }
 
