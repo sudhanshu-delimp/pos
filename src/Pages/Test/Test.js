@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 function Test() {
     return (
         <>
@@ -445,11 +446,42 @@ function Test() {
             </div>
 
             <footer className="bg-gray-800 text-white p-4 fixed bottom-0 w-full z-40">
-                <div className="container mx-auto">
-                    <p className="text-center">© 2024 Your Company. All rights reserved.</p>
-                </div>
-            </footer>
-
+                  
+                        <div className="sm:flex sm:items-center sm:justify-between">
+                            <a
+                                href="https://flowbite.com/"
+                                className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse"
+                            >
+                                
+                                <span className="self-center text-xlfont-semibold whitespace-nowrap dark:text-white">
+                                Checkout: $426.15
+                                </span>
+                            </a>
+                            <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+                                <li>
+                                    <a href="#" className="hover:underline me-4 md:me-6">
+                                        About
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" className="hover:underline me-4 md:me-6">
+                                        Privacy Policy
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" className="hover:underline me-4 md:me-6">
+                                        Licensing
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" className="hover:underline">
+                                        Contact
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+             
+                </footer>
 
         </>
 
