@@ -48,6 +48,9 @@
   
   body {
     background-color: #E8E8E8;
+    font-family: poppins;
+    font-weight: 500;
+    color: #363636;
   }
   
   /* .container--login {
