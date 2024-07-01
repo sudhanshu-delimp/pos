@@ -5,6 +5,8 @@ import useAsync from './../../hooks/useAsync';
 import { useDispatch } from 'react-redux';
 import { saveCustomer } from '../../redux/reducers/appSlice';
 import { notifyError, notifySuccess } from "../../utils/toast";
+import Loader from "../../Components/preloader/Loader";
+
 
 
 const CustomerList = () => {
@@ -23,11 +25,11 @@ const CustomerList = () => {
         item?.billing?.phone.toLowerCase().includes(searchQuery.toLowerCase())
     ) : [];
 
-      const handleSelectCustomer = (customer) => {
+    const handleSelectCustomer = (customer) => {
         dispatch(saveCustomer(customer))
         notifySuccess("Customer saved successfully")
         setCustomerModal(false)
-      }
+    }
 
     return (
         <>
@@ -55,7 +57,7 @@ const CustomerList = () => {
             </div>
             <div className="table_container">
                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg tbody_scroll">
-                    <div className="pb-4 bg-white dark:bg-gray-900">
+                    <div className="pb-4 dark:bg-gray-900">
                         <label htmlFor="table-search" className="sr-only">
                             Search
                         </label>
@@ -99,13 +101,18 @@ const CustomerList = () => {
                                     </tr>
                                 ))
                             }
-                            {!loading && filteredData.length === 0 && <tr>
-                                <td colSpan="2" className="px-6 py-4 text-[#000] text-center">
-                                    No results found
-                                </td>
-                            </tr>}
                         </tbody>
                     </table>
+                    {loading &&
+                        <Loader loading={loading} />
+                    }
+
+                    {!loading && filteredData.length === 0 &&
+                        <div colSpan="2" className="px-6 py-4 text-[#000] text-center">
+                            No records available
+                        </div>
+                    }
+
                 </div>
             </div>
         </>

@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { saveCustomer } from "../redux/reducers/appSlice";
 import { CgMoreVerticalO } from "react-icons/cg";
 import { logout } from "../redux/reducers/authSlice";
+import { RiUserAddFill } from "react-icons/ri";
+import { MdLogout } from "react-icons/md";
 
 
 function Header() {
@@ -78,8 +80,23 @@ function Header() {
                 </span>
               }
             </div>
-            <div className="flex items-center">
-              <div className="items-center ms-3 relative">
+
+            <div className="flex items-center text-white">
+              <ul className="flex flex-wrap items-center mb-6 text-sm font-medium sm:mb-0 gap-2">
+                <li>
+                  <span className="text-xl cursor-pointer me-4 md:me-6 flex items-cente gap-1.5">
+                    <RiUserAddFill onClick={() => setCustomerModal(true)} />
+                  </span>
+                </li>
+                <li>
+                  <span className="text-xl cursor-pointer me-4 md:me-6 flex items-cente gap-1.5">
+                    <MdLogout onClick={() => dispatch(logout())} />
+                  </span>
+                </li>
+              </ul>
+
+
+              {/* <div className="items-center ms-3 relative">
                 <div>
                   <button
                     onClick={toggleDropdown}
@@ -110,15 +127,7 @@ function Header() {
                           Create Customer
                         </span>
                       </li>
-                      {/* <li>
-                        <a
-                          href="#"
-                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600"
-                          role="menuitem"
-                        >
-                          Orders
-                        </a>
-                      </li> */}
+                     
                       <li>
                         <span
                           onClick={() => dispatch(logout())}
@@ -131,7 +140,9 @@ function Header() {
                     </ul>
                   </div>
                 }
-              </div>
+              </div> */}
+
+
             </div>
           </div>
         </div>

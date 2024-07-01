@@ -5,6 +5,8 @@ import useAsync from "./../../hooks/useAsync";
 import ProductServices from "../../services/ProductServices";
 import { AppContext } from "../../context/AppContext";
 import { useSelector } from "react-redux";
+import Loader from "../../Components/preloader/Loader";
+
 
 
 const Products = () => {
@@ -34,7 +36,6 @@ const Products = () => {
     const getPrice = (product) => {
         const price = product?.sale_price || product?.regular_price || product?.price
         return price
-
     }
 
     return (
@@ -53,7 +54,7 @@ const Products = () => {
                                 </div>
                                 <div className="mt-4 flex justify-between">
                                     <div>
-                                        <h3 className="text-gray-700">
+                                        <h3 className="text-gray-700 line-clamp-2">
                                             <a href="#">
                                                 <span aria-hidden="true" className="absolute inset-0" />
                                                 {item.name}
@@ -77,8 +78,13 @@ const Products = () => {
                                 </div>
                             </div>
                         ))}
+
+
                 </div>
             </div>
+            {loading &&
+                <Loader loading={loading} />
+            }
         </div>
     );
 };

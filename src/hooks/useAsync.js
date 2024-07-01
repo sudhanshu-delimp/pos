@@ -8,7 +8,7 @@ import useUtilsFunction from '../hooks/useUtilsFunction';
 const useAsync = (asyncFunction) => {
     const { catchError } = useUtilsFunction();
     const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
     const {
