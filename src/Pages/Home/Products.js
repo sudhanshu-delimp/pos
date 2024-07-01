@@ -41,7 +41,7 @@ const Products = () => {
     return (
         <div className="p-4 sm:ml-96">
             <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14 mb-14">
-                <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-2 xl:gap-x-8">
+                <div className="grid pos--content">
                     {data?.length > 0 &&
                         data?.map((item, index) => (
                             <div key={index + 1} className="group relative bg-gray-100 rounded-[9px] p-3">

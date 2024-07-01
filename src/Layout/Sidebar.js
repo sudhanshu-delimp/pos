@@ -24,7 +24,7 @@ function Sidebar() {
                     href="#"
                     className="items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group"
                   >
-                    <div className="p-4 bg-white rounded-lg shadow-md">
+                    <div className="p-4 bg-white rounded-lg shadow border border-gray-300">
                       <div className="flex items-center">
                         <img
                           className="w-12 h-12 mr-4 rounded-full outline outline-1 outline-offset-4 outline-gray-300"
