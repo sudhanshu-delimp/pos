@@ -1,6 +1,11 @@
 /* .addcustomer_container{
     box-shadow: 0px 0px 3px -1px black;
 } */
+.pos--content {
+  grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
+  gap: 20px;
+}
+
 .addcustomer_container .form_container form input{
     width: 100%;
     box-shadow: 0px 0px 2px #00000030;

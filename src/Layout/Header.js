@@ -58,7 +58,7 @@ function Header() {
                 type="button"
                 className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
               >
-                
+
               </button>
               {customer.first_name &&
                 <span onClick={() => setCustomerModal(true)} className="flex cursor-pointer ms-2 md:me-24">
@@ -72,28 +72,21 @@ function Header() {
             <div className="flex items-center text-white">
               <ul className="flex flex-wrap items-center mb-6 text-sm font-medium sm:mb-0 gap-4">
                 <li className="bg-[#3498db] rounded px-3 py-3 cursor-pointer">
-                <div className="flex items-center space-x-2 flex-col gap-1">
+                  <div onClick={() => setCustomerModal(true)} className="flex items-center space-x-2 flex-col gap-1">
+                    <SlUser />
+                    <span className="text-white">Add User</span>
+                  </div>
 
-                <SlUser onClick={() => setCustomerModal(true)} />
-
-  <span className="text-white">Add User</span>
-</div>
-
-                 
                 </li>
                 <li className="bg-[#3498db] rounded px-3 py-3">
                   <span className="cursor-pointer flex items-center gap-1.5">
-                    
-                    <div className="flex items-center space-x-2 flex-col gap-1">
-
-                    <MdLogout onClick={() => dispatch(logout())} />
-
-<span className="text-white">Logout</span>
-</div>
+                    <div onClick={() => dispatch(logout())} className="flex items-center space-x-2 flex-col gap-1">
+                      <MdLogout />
+                      <span className="text-white">Logout</span>
+                    </div>
                   </span>
                 </li>
               </ul>
-
 
               {/* <div className="items-center ms-3 relative">
                 <div>

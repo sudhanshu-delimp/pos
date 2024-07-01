@@ -50,7 +50,7 @@ function Footer() {
                 const response = await OrderServices.createOrderApi(payload);
                 const orderId = response.id
                 setLoading(false);
-                notifySuccess("Order created successfully TK");
+                notifySuccess("Order created successfully");
                 emptyCart();
                 dispatch(saveCustomer(""));
                 popupWindow.location.href = `${process.env.REACT_APP_TERMINAL_URL}?orderId=${orderId}`;
