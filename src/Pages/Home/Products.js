@@ -16,24 +16,22 @@ const Products = () => {
 
 
     const handleAddToCart = (product) => {
-        if(product.shipping_required && !customer.id ){
+        if (product.shipping_required && !customer.id) {
             setCustomerModal(true)
         }
-        else{
-            const price = parseInt(product.sale_price) || parseInt(product.regular_price) || parseInt(product.price) || 0
-            const newItem = {
-                id: product.id,
-                title: product.name,
-                image: product.images[0]?.src,
-                price: price,
-                status: product.status,
-                shipping_required: product.shipping_required
-            };
-            handleAddItem(newItem);
-        }
+        const price = parseInt(product.sale_price) || parseInt(product.regular_price) || parseInt(product.price) || 0
+        const newItem = {
+            id: product.id,
+            title: product.name,
+            image: product.images[0]?.src,
+            price: price,
+            status: product.status,
+            shipping_required: product.shipping_required
+        };
+        handleAddItem(newItem);
     };
 
-    const getPrice = (product) =>{
+    const getPrice = (product) => {
         const price = product?.sale_price || product?.regular_price || product?.price
         return price
 
