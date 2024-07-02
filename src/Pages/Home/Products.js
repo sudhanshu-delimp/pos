@@ -60,10 +60,10 @@ const Products = () => {
                                                 {item.name}
                                             </a>
                                         </h3>
-                                        <p class="mt-1 font-medium text-gray-900">
+                                        <p className="mt-1 font-medium text-gray-900">
                                             ${getPrice(item)}
                                             {parseInt(item.regular_price) > parseInt(item.sale_price) && (
-                                                <span class="text-gray-500 line-through ml-2">
+                                                <span className="text-gray-500 line-through ml-2">
                                                     ${item.regular_price}
                                                 </span>
                                             )}

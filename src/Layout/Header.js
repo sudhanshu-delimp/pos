@@ -1,12 +1,9 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useCart } from "react-use-cart";
 import CustomerModal from "../Pages/Customer/CustomerModal";
 import { AppContext } from "../context/AppContext";
 import { useDispatch, useSelector } from "react-redux";
-import { saveCustomer } from "../redux/reducers/appSlice";
-import { CgMoreVerticalO } from "react-icons/cg";
 import { logout } from "../redux/reducers/authSlice";
-import { RiUserAddFill } from "react-icons/ri";
 import { MdLogout } from "react-icons/md";
 import { SlUser } from "react-icons/sl";
 
@@ -15,35 +12,13 @@ function Header() {
   const dispatch = useDispatch()
   const { emptyCart } = useCart();
   const { customer } = useSelector((state) => state.app);
-  const dropdownRef = useRef(null);
-  const [dropdownVisible, setDropdownVisible] = useState(false);
   const { customerModal, setCustomerModal } = useContext(AppContext);
 
-  const toggleDropdown = () => {
-    setDropdownVisible((prev) => !prev);
-  };
-
-  const handleClickOutside = (event) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setDropdownVisible(false);
-    }
-  };
-
-  useEffect(() => {
-    if (dropdownVisible) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
-  const handleVoidCustomer = () => {
-    dispatch(saveCustomer(""));
+  const handleLogOut = () => {
     emptyCart();
+    dispatch(logout());
   }
+
 
   return (
     <>
@@ -80,61 +55,13 @@ function Header() {
                 </li>
                 <li className="bg-[#3498db] rounded px-3 py-3">
                   <span className="cursor-pointer flex items-center gap-1.5">
-                    <div onClick={() => dispatch(logout())} className="flex items-center space-x-2 flex-col gap-1">
+                    <div onClick={handleLogOut} className="flex items-center space-x-2 flex-col gap-1">
                       <MdLogout />
                       <span className="text-white">Logout</span>
                     </div>
                   </span>
                 </li>
               </ul>
-
-              {/* <div className="items-center ms-3 relative">
-                <div>
-                  <button
-                    onClick={toggleDropdown}
-                    type="button"
-                    className="flex text-sm bg-gray-800 rounded-full"
-                    aria-expanded="false"
-                    data-dropdown-toggle="dropdown-user"
-                  >
-                    <span className="sr-only">Open user menu</span>
-                    <span className="w-8 h-8 rounded-full text-white text-3xl">
-                      <CgMoreVerticalO />
-                    </span>
-                  </button>
-                </div>
-
-                {dropdownVisible &&
-                  <div
-                    className="z-50 absolute right-0 transition duration-150-0 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
-                    id="dropdown-user"
-                  >
-                    <ul className="py-1 w-[180px]" role="none">
-                      <li>
-                        <span
-                          onClick={() => setCustomerModal(true)}
-                          className="block px-4 py-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600"
-                          role="menuitem"
-                        >
-                          Create Customer
-                        </span>
-                      </li>
-                     
-                      <li>
-                        <span
-                          onClick={() => dispatch(logout())}
-                          className="block cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600"
-                          role="menuitem"
-                        >
-                          Sign out
-                        </span>
-                      </li>
-                    </ul>
-                  </div>
-                }
-              </div> */}
-
-
             </div>
           </div>
         </div>

@@ -216,10 +216,6 @@ const Addcustomer = () => {
       notifyError("First name is required")
     }
 
-    else if (!user.last_name) {
-      notifyError("Last name is required")
-    }
-
     else if (!user.email) {
       notifyError("Email is Required")
     }
@@ -290,10 +286,9 @@ const Addcustomer = () => {
                 <input
                   type="text"
                   name="last_name"
-                  required
                   value={user.last_name}
                   onChange={handleUserChange}
-                  placeholder="Last Name*"
+                  placeholder="Last Name"
                   className="px-5 py-3"
                 />
               </div>
@@ -301,10 +296,9 @@ const Addcustomer = () => {
                 <input
                   type="number"
                   name="phone"
-                  required
                   value={user.phone}
                   onChange={handleUserChange}
-                  placeholder="Phone*"
+                  placeholder="Phone"
                   className="px-5 py-3 mt-3"
                 />
                 <input
@@ -321,7 +315,6 @@ const Addcustomer = () => {
                 <input
                   type="text"
                   name="company"
-                  required
                   value={billing.company}
                   onChange={handleBillingChange}
                   placeholder="Company"
@@ -343,7 +336,6 @@ const Addcustomer = () => {
                 <input
                   type="text"
                   name="address_2"
-                  required
                   value={billing.address_2}
                   onChange={handleBillingChange}
                   placeholder="Address 2"
@@ -354,7 +346,6 @@ const Addcustomer = () => {
                 <input
                   type="text"
                   name="country"
-                  required
                   value={billing.country}
                   onChange={handleBillingChange}
                   placeholder="Country"
@@ -363,7 +354,6 @@ const Addcustomer = () => {
                 <input
                   type="text"
                   name="state"
-                  required
                   value={billing.state}
                   onChange={handleBillingChange}
                   placeholder="State"
@@ -372,7 +362,6 @@ const Addcustomer = () => {
                 <input
                   type="text"
                   name="postcode"
-                  required
                   value={billing.postcode}
                   onChange={handleBillingChange}
                   placeholder="Zip"
