@@ -55,9 +55,9 @@ const CustomerList = () => {
                     </button>
                 </div>
             </div>
-            <div className="table_container">
-                <div className="relative overflow-x-auto shadow-md sm:rounded-lg tbody_scroll">
-                    <div className="pb-4 dark:bg-gray-900">
+            <div className="table_container overflow-y-auto max-h-[400px]">
+                <div className="relative overflow-x-auto block">
+                    <div>
                         <label htmlFor="table-search" className="sr-only">
                             Search
                         </label>
@@ -82,20 +82,20 @@ const CustomerList = () => {
                             <input
                                 type="text"
                                 id="table-search"
-                                className="block pt-2 pb-2 ps-10 text-sm text-gray-900 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[100%] search_customer"
+                                className="block pt-3 pb-3 ps-10 text-sm text-gray-900 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-[100%] search_customer"
                                 placeholder="Search"
                                 value={searchQuery}
                                 onChange={handleSearchChange}
                             />
                         </div>
                     </div>
-                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                        <tbody>
+                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border-collapse">
+                        <tbody className='block max-h-[300px] overflow-y-auto'>
                             {filteredData && filteredData?.length > 0 &&
                                 filteredData.map((item, index) => (
-                                    <tr onClick={() => handleSelectCustomer(item)} key={index + 1} className="bg-white border-b cursor-pointer dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                        <td className="px-6 py-4 text-[#000]">{`${item.first_name} ${item.last_name}`}</td>
-                                        <td className="px-6 py-4 text-[#000] text-right">
+                                    <tr onClick={() => handleSelectCustomer(item)} key={index + 1} className="bg-white border-b cursor-pointer dark:bg-gray-200 dark:border-gray-200 hover:bg-gray-200 table w-full table-fixed">
+                                        <td className="px-4 py-4 text-[#000]">{`${item.first_name} ${item.last_name}`}</td>
+                                        <td className="px-4 py-4 text-[#000] text-right">
                                             {item?.billing?.phone}
                                         </td>
                                     </tr>

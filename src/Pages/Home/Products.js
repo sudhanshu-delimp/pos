@@ -40,7 +40,7 @@ const Products = () => {
 
     return (
         <div className="p-4 sm:ml-96">
-            <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14 mb-14">
+            <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-20 mb-14">
                 <div className="grid pos--content">
                     {data?.length > 0 &&
                         data?.map((item, index) => (

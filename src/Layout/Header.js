@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/reducers/authSlice";
 import { MdLogout } from "react-icons/md";
 import { SlUser } from "react-icons/sl";
+import { FaUserCheck } from "react-icons/fa6";
+import { FiMapPin } from "react-icons/fi";
 
 
 function Header() {
@@ -36,9 +38,14 @@ function Header() {
 
               </button>
               {customer.first_name &&
-                <span onClick={() => setCustomerModal(true)} className="flex cursor-pointer ms-2 md:me-24">
-                  <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white text-white">
-                    {`${customer.first_name} ${customer.last_name}`}
+                <span onClick={() => setCustomerModal(true)} className="flex flex-col cursor-pointer ms-14 md:me-24">
+                  <span className="text-base font-semibold sm:text-sm whitespace-nowrap dark:text-white text-white capitalize flex items-center gap-2">
+                  <FaUserCheck />
+                  {`${customer.first_name} ${customer.last_name}`}
+                  </span>
+                  <span className="flex items-center gap-2 self-center text-sm font-semibold sm:text-xs whitespace-nowrap dark:text-white text-white capitalize font-normal">
+                  <FiMapPin />
+                  47 W 13th St, New York, NY 10011, USA
                   </span>
                 </span>
               }
@@ -46,16 +53,16 @@ function Header() {
 
             <div className="flex items-center text-white">
               <ul className="flex flex-wrap items-center mb-6 text-sm font-medium sm:mb-0 gap-4">
-                <li className="bg-[#3498db] rounded px-3 py-3 cursor-pointer">
-                  <div onClick={() => setCustomerModal(true)} className="flex items-center space-x-2 flex-col gap-1">
+                <li className="bg-[#0fb4e0] px-3 py-3 transition duration-150 ease-out hover:ease-in cursor-pointer hover:bg-gray-700">
+                  <div onClick={() => setCustomerModal(true)} className="flex items-center space-x-2">
                     <SlUser />
-                    <span className="text-white">Add User</span>
+                    <span className="text-white">Add Customer</span>
                   </div>
 
                 </li>
-                <li className="bg-[#3498db] rounded px-3 py-3">
+                <li className="bg-[#0fb4e0] px-3 py-3 hover:bg-gray-700">
                   <span className="cursor-pointer flex items-center gap-1.5">
-                    <div onClick={handleLogOut} className="flex items-center space-x-2 flex-col gap-1">
+                    <div onClick={handleLogOut} className="flex items-center space-x-2">
                       <MdLogout />
                       <span className="text-white">Logout</span>
                     </div>

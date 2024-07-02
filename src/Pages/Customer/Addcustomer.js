@@ -253,21 +253,21 @@ const Addcustomer = () => {
 
   return (
     <>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between mb-4">
         <button
           type="button"
-          className="bg-[#3498db] text-white px-4 py-2 rounded mb-4"
+          className="bg-[#3498db] text-white px-4 py-2 rounded"
           onClick={() => setAddCustomer(false)}
         >
           Back
         </button>
         <h3>Create new customer</h3>
-        <button type="button" onClick={handleSubmit} className="bg-[#3498db] text-white px-4 py-2 rounded mb-4">
+        <button type="button" onClick={handleSubmit} className="bg-[#3498db] text-white px-4 py-2 rounded">
           {isLoading ? "Processing" : "Save"}
         </button>
       </div>
-      <div className="addcustomer_container m-auto">
-        <div className="form_container max-w-[100%] m-auto">
+      <div className="m-auto">
+        <div className="form_container max-w-[100%] m-auto pl-1 pr-1 h-[400px] overflow-y-scroll">
           <div className="billing_address">
             <h1 className="text-[16px] pb-3 text-[#000000]">
               Billing Details
@@ -281,7 +281,7 @@ const Addcustomer = () => {
                   value={user.first_name}
                   onChange={handleUserChange}
                   placeholder="First Name*"
-                  className="px-5 py-1 sm:py-1 md:py-1 lg:py-2"
+                  className="border text-gray-900 text-sm w-full p-3"
                 />
                 <input
                   type="text"
@@ -289,7 +289,7 @@ const Addcustomer = () => {
                   value={user.last_name}
                   onChange={handleUserChange}
                   placeholder="Last Name"
-                  className="px-5 py-3"
+                  className="border text-gray-900 text-sm w-full p-3"
                 />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-[10px] mt-3">
@@ -299,7 +299,7 @@ const Addcustomer = () => {
                   value={user.phone}
                   onChange={handleUserChange}
                   placeholder="Phone"
-                  className="px-5 py-3 mt-3"
+                  className="border text-gray-900 text-sm w-full p-3"
                 />
                 <input
                   type="email"
@@ -308,7 +308,7 @@ const Addcustomer = () => {
                   value={user.email}
                   onChange={handleUserChange}
                   placeholder="Email*"
-                  className="px-5 py-3 mt-3"
+                  className="border text-gray-900 text-sm w-full p-3"
                 />
               </div>
               <div className="mt-3">
@@ -318,7 +318,7 @@ const Addcustomer = () => {
                   value={billing.company}
                   onChange={handleBillingChange}
                   placeholder="Company"
-                  className="px-5 py-3"
+                  className="border text-gray-900 text-sm w-full p-3"
                 />
               </div>
               <div className="mt-3">
@@ -329,6 +329,7 @@ const Addcustomer = () => {
                     isClearable: true,
                     billingAddress,
                     onChange: selectBillingAddress,
+                    className: "p-0 text-gray-900 text-sm w-full p-3"
                   }}
                 />
               </div>
@@ -339,7 +340,7 @@ const Addcustomer = () => {
                   value={billing.address_2}
                   onChange={handleBillingChange}
                   placeholder="Address 2"
-                  className="px-5 py-3"
+                  className="border text-gray-900 text-sm w-full p-3"
                 />
               </div>
               <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-[10px]">
@@ -349,7 +350,7 @@ const Addcustomer = () => {
                   value={billing.country}
                   onChange={handleBillingChange}
                   placeholder="Country"
-                  className="px-5 py-3"
+                  className="border text-gray-900 text-sm w-full p-3"
                 />
                 <input
                   type="text"
@@ -357,7 +358,7 @@ const Addcustomer = () => {
                   value={billing.state}
                   onChange={handleBillingChange}
                   placeholder="State"
-                  className="px-5 py-3"
+                  className="border text-gray-900 text-sm w-full p-3"
                 />
                 <input
                   type="text"
@@ -365,7 +366,7 @@ const Addcustomer = () => {
                   value={billing.postcode}
                   onChange={handleBillingChange}
                   placeholder="Zip"
-                  className="px-5 py-3"
+                  className="border text-gray-900 text-sm w-full p-3"
                 />
               </div>
             </form>
@@ -378,7 +379,7 @@ const Addcustomer = () => {
             </span>
             {isShippingAddress &&
               <>
-                <h1 className="text-[16px] pb-3 text-[#000000]">
+                <h1 className="text-[16px] pb-3 text-[#000000] mt-2">
                   Shipping Address
                 </h1>
                 <form>
@@ -389,7 +390,7 @@ const Addcustomer = () => {
                       value={shipping.first_name}
                       onChange={handleShippingChange}
                       placeholder="First Name"
-                      className="px-5 py-1 sm:py-1 md:py-1 lg:py-2"
+                      className="border text-gray-900 text-sm w-full p-3"
                     />
                     <input
                       type="text"
@@ -397,7 +398,7 @@ const Addcustomer = () => {
                       value={shipping.last_name}
                       onChange={handleShippingChange}
                       placeholder="Last Name"
-                      className="px-5 py-3"
+                      className="border text-gray-900 text-sm w-full p-3"
                     />
                   </div>
 
@@ -409,10 +410,10 @@ const Addcustomer = () => {
                       value={shipping.company}
                       onChange={handleShippingChange}
                       placeholder="Company"
-                      className="px-5 py-3"
+                      className="border text-gray-900 text-sm w-full p-3"
                     />
                   </div>
-                  <div className=" mt-3">
+                  <div className="mt-3">
                     <GooglePlacesAutocomplete
                       apiKey={process.env.REACT_APP_GOOGLE_API_KEY}
                       selectProps={{
@@ -420,6 +421,7 @@ const Addcustomer = () => {
                         isClearable: true,
                         shippingAddress,
                         onChange: selectShippingAddress,
+                        className: "p-0 text-gray-900 text-sm w-full p-3"
                       }}
                     />
                   </div>
@@ -431,7 +433,7 @@ const Addcustomer = () => {
                       value={shipping.address_2}
                       onChange={handleShippingChange}
                       placeholder="Address 2"
-                      className="px-5 py-3"
+                      className="border text-gray-900 text-sm w-full p-3"
                     />
                   </div>
                   <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-[10px]">
@@ -441,7 +443,7 @@ const Addcustomer = () => {
                       value={shipping.country}
                       onChange={handleShippingChange}
                       placeholder="Country"
-                      className="px-5 py-3"
+                      className="border text-gray-900 text-sm w-full p-3"
                     />
                     <input
                       type="text"
@@ -449,7 +451,7 @@ const Addcustomer = () => {
                       value={shipping.state}
                       onChange={handleShippingChange}
                       placeholder="State"
-                      className="px-5 py-3"
+                      className="border text-gray-900 text-sm w-full p-3"
                     />
                     <input
                       type="text"
@@ -457,7 +459,7 @@ const Addcustomer = () => {
                       value={shipping.postcode}
                       onChange={handleShippingChange}
                       placeholder="Zip"
-                      className="px-5 py-3"
+                      className="border text-gray-900 text-sm w-full p-3"
                     />
                   </div>
                 </form>

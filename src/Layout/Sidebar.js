@@ -16,13 +16,13 @@ function Sidebar() {
         aria-label="Sidebar"
       >
         <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
-          <ul className="space-y-2 font-medium">
+          <ul className="space-y-2 font-medium mt-8">
             {items?.length > 0 &&
               items?.map((item, index) => (
                 <li key={index + 1} >
                   <a
                     href="#"
-                    className="items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                    className="items-center p-0 mt-2 text-gray-900 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group"
                   >
                     <div className="p-4 bg-white rounded-lg shadow border border-gray-300">
                       <div className="flex items-center">

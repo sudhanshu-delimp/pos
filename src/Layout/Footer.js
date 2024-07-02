@@ -68,7 +68,7 @@ function Footer() {
         <footer className="bg-[#3498db] text-white p-4 fixed bottom-0 w-full z-40">
             <div className="sm:flex sm:items-center sm:justify-between">
                 <span
-                    className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse"
+                    className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse ms-14 md:me-24"
                 >
                     <span className="self-center text-xl cursor-pointer font-semibold whitespace-nowrap dark:text-white">
                         {cartTotal > 0 && (
@@ -80,7 +80,7 @@ function Footer() {
                 </span>
                 <ul className="flex flex-wrap items-center mb-6 text-sm font-medium sm:mb-0">
                     <li>
-                        <span onClick={handleVoidProduct} className="text-xl cursor-pointer me-4 md:me-6 flex items-cente gap-1.5">
+                        <span onClick={handleVoidProduct} className="text-xl cursor-pointer me-4 md:me-6 flex items-center gap-1.5">
                             <SiVoidlinux /> Void
                         </span>
                     </li>
