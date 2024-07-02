@@ -15,7 +15,7 @@ function Footer() {
     const { customer } = useSelector((state) => state.app);
     const [loading, setLoading] = useState(false);
     const { catchError } = useUtilsFunction();
-    const { setCustomerModal } = useContext(AppContext);
+    const { setCustomerModal , setBillingAddress } = useContext(AppContext);
     const { isEmpty, items, cartTotal, emptyCart } = useCart();
 
     const handleVoidProduct = () => {
@@ -28,6 +28,7 @@ function Footer() {
     const createOrder = async () => {
         if (items.find(item => item.shipping_required === true) && !customer.id) {
             setCustomerModal(true);
+            setBillingAddress(true);
         } else {
             const cartItems = items.map((item) => ({
                 product_id: item.id,
@@ -53,6 +54,7 @@ function Footer() {
                 notifySuccess("Order created successfully");
                 emptyCart();
                 dispatch(saveCustomer(""));
+                setBillingAddress(false);
                 popupWindow.location.href = `${process.env.REACT_APP_TERMINAL_URL}?orderId=${orderId}`;
                 // window.open(`${process.env.REACT_APP_TERMINAL_URL}?orderId=${orderId}`, "Popup", "width=600,height=700");
             } catch (error) {

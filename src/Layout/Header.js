@@ -21,6 +21,8 @@ function Header() {
     dispatch(logout());
   }
 
+  console.log("customer", customer)
+
 
   return (
     <>
@@ -35,17 +37,16 @@ function Header() {
                 type="button"
                 className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
               >
-
               </button>
               {customer.first_name &&
                 <span onClick={() => setCustomerModal(true)} className="flex flex-col cursor-pointer ms-14 md:me-24">
                   <span className="text-base font-semibold sm:text-sm whitespace-nowrap dark:text-white text-white capitalize flex items-center gap-2">
-                  <FaUserCheck />
-                  {`${customer.first_name} ${customer.last_name}`}
+                    <FaUserCheck />
+                    {`${customer.first_name} ${customer.last_name}`}
                   </span>
-                  <span className="flex items-center gap-2 self-center text-sm font-semibold sm:text-xs whitespace-nowrap dark:text-white text-white capitalize font-normal">
-                  <FiMapPin />
-                  47 W 13th St, New York, NY 10011, USA
+                  <span className="flex items-center gap-2 self-center text-sm font-semibold sm:text-xs whitespace-nowrap dark:text-white text-white capitalize">
+                    <FiMapPin />
+                    {customer?.billing?.address_1}
                   </span>
                 </span>
               }

@@ -8,7 +8,7 @@ export const AppProvider = ({ children }) => {
   const [isUpdate, setIsUpdate] = useState(false);
   const [customerModal, setCustomerModal] = useState(false);
   const [addCustomer, setAddCustomer] = useState(false);
-
+  const [isBillingAddress , setBillingAddress] = useState(false)
 
   const value = useMemo(
     () => ({
@@ -21,9 +21,12 @@ export const AppProvider = ({ children }) => {
       setCustomerModal,
       addCustomer,
       setAddCustomer,
-      setIsLoading
+      setIsLoading,
+      isBillingAddress,
+      setBillingAddress,
+
     }),
-    [ currentPage, isLoading , customerModal , addCustomer]
+    [ currentPage, isLoading , customerModal , addCustomer , isBillingAddress]
   );
 
   return (

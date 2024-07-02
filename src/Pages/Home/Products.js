@@ -12,7 +12,7 @@ import Loader from "../../Components/preloader/Loader";
 const Products = () => {
     const { handleAddItem } = useAddToCart();
     const { data, loading, error } = useAsync(() => ProductServices.getAllProducts());
-    const { setCustomerModal } = useContext(AppContext);
+    const { setCustomerModal, setBillingAddress } = useContext(AppContext);
     const { customer } = useSelector((state) => state.app);
 
 
@@ -20,6 +20,7 @@ const Products = () => {
     const handleAddToCart = (product) => {
         if (product.shipping_required && !customer.id) {
             setCustomerModal(true)
+            setBillingAddress(true)
         }
         const price = parseInt(product.sale_price) || parseInt(product.regular_price) || parseInt(product.price) || 0
         const newItem = {

@@ -14,7 +14,7 @@ const Addcustomer = () => {
   const [isShippingAddress, setShowShippingAddress] = useState(false)
   const [billingAddress, setBillingAddress] = useState("")
   const [shippingAddress, setShippingAddress] = useState("")
-  const { setAddCustomer, setIsUpdate ,setCustomerModal } = useContext(AppContext);
+  const { setAddCustomer, setIsUpdate ,setCustomerModal , isBillingAddress } = useContext(AppContext);
   const [isLoading, setLoading] = useState(false);
   const { catchError } = useUtilsFunction();
 
@@ -103,7 +103,6 @@ const Addcustomer = () => {
 
   const selectBillingAddress = (address) => {
     setBillingAddress(address)
-    console.log("Fulllladdress", address)
     const fullAddress = address?.label || ""
     const formatedAddress = address?.value?.terms
     const countryName = formatedAddress?.pop()?.value || ""
@@ -220,6 +219,10 @@ const Addcustomer = () => {
       notifyError("Email is Required")
     }
 
+    else if(!billingAddress && isBillingAddress === true){
+      notifyError("Please enter the address")
+    }
+
     else {
       let payload = {
         ...user,
@@ -325,11 +328,11 @@ const Addcustomer = () => {
                 <GooglePlacesAutocomplete
                   apiKey={process.env.REACT_APP_GOOGLE_API_KEY}
                   selectProps={{
-                    placeholder: "Billing Address 1",
+                    placeholder: "Address 1",
                     isClearable: true,
                     billingAddress,
                     onChange: selectBillingAddress,
-                    className: "p-0 text-gray-900 text-sm w-full p-3"
+                    className: "border text-gray-900 text-sm w-full p-[3px]"
                   }}
                 />
               </div>
@@ -421,7 +424,7 @@ const Addcustomer = () => {
                         isClearable: true,
                         shippingAddress,
                         onChange: selectShippingAddress,
-                        className: "p-0 text-gray-900 text-sm w-full p-3"
+                        className: "border text-gray-900 text-sm w-full p-[3px]" 
                       }}
                     />
                   </div>

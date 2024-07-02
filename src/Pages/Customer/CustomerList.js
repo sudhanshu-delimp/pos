@@ -4,7 +4,7 @@ import CustomerServices from "../../services/CutomerServices";
 import useAsync from './../../hooks/useAsync';
 import { useDispatch } from 'react-redux';
 import { saveCustomer } from '../../redux/reducers/appSlice';
-import { notifyError, notifySuccess } from "../../utils/toast";
+import { notifySuccess } from "../../utils/toast";
 import Loader from "../../Components/preloader/Loader";
 
 
@@ -27,7 +27,7 @@ const CustomerList = () => {
 
     const handleSelectCustomer = (customer) => {
         dispatch(saveCustomer(customer))
-        notifySuccess("Customer saved successfully")
+        notifySuccess("Customer selected successfully")
         setCustomerModal(false)
     }
 
@@ -93,11 +93,10 @@ const CustomerList = () => {
                         <tbody className='block max-h-[300px] overflow-y-auto'>
                             {filteredData && filteredData?.length > 0 &&
                                 filteredData.map((item, index) => (
+                                    item?.first_name &&
                                     <tr onClick={() => handleSelectCustomer(item)} key={index + 1} className="bg-white border-b cursor-pointer dark:bg-gray-200 dark:border-gray-200 hover:bg-gray-200 table w-full table-fixed">
                                         <td className="px-4 py-4 text-[#000]">{`${item.first_name} ${item.last_name}`}</td>
-                                        <td className="px-4 py-4 text-[#000] text-right">
-                                            {item?.billing?.phone}
-                                        </td>
+                                        <td className="px-4 py-4 text-[#000] text-right">{item?.billing?.phone}</td>
                                     </tr>
                                 ))
                             }
