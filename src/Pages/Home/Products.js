@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import lock from "../../assets/images/lock.svg";
 import useAddToCart from "../../hooks/useAddToCart";
 import useAsync from "./../../hooks/useAsync";
@@ -14,6 +14,7 @@ const Products = () => {
     const { data, loading, error } = useAsync(() => ProductServices.getAllProducts());
     const { setCustomerModal, setBillingAddress } = useContext(AppContext);
     const { customer } = useSelector((state) => state.app);
+    const [attributeModal , setAttributeModal] = useState(false)
 
 
 
@@ -39,6 +40,13 @@ const Products = () => {
         return price
     }
 
+    const toggleAttributeModal = () => {
+        setAttributeModal(!attributeModal)
+
+    }
+
+    console.log("attributeModal" , attributeModal)
+
     return (
         <div className="p-4 sm:ml-96">
             <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-20 mb-14">
@@ -61,7 +69,7 @@ const Products = () => {
                                                 {item.name}
                                             </a>
                                         </h3>
-                                        <p className="mt-1 font-medium text-gray-900">
+                                        <p onClick={toggleAttributeModal} className="mt-1 font-medium text-gray-900">
                                             ${getPrice(item)}
                                             {parseInt(item.regular_price) > parseInt(item.sale_price) && (
                                                 <span className="text-gray-500 line-through ml-2">
