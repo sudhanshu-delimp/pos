@@ -68,24 +68,38 @@ function Footer() {
 
     return (
         <footer className="bg-[#3498db] text-white p-4 fixed bottom-0 w-full z-40">
-            <div className="sm:flex sm:items-center sm:justify-between">
+            <div className="sm:flex sm:items-center gap-20">
                 <span
-                    className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse ms-14 md:me-24"
+                    className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse"
                 >
                     <span className="self-center text-xl cursor-pointer font-semibold whitespace-nowrap dark:text-white">
                         {cartTotal > 0 && (
                             <span onClick={createOrder}>
-                                {loading ? "Processing" : "Checkout"} ${cartTotal?.toFixed(2)}
+                                {loading ? "Processing" : "Total"} ${cartTotal?.toFixed(2)}
                             </span>
                         )}
                     </span>
                 </span>
                 <ul className="flex flex-wrap items-center mb-6 text-sm font-medium sm:mb-0">
-                    <li>
+                    {/* <li onClick={handleVoidProduct} className="bg-[#0fb4e0] px-6 py-3 transition duration-150 ease-out hover:ease-in cursor-pointer hover:bg-gray-700">
+                        <div className="flex items-center space-x-2">
+                        <SiVoidlinux />
+                            <span className="text-white"> Void</span>
+                        </div>
+                    </li> */}
+
+                    <li onClick={handleVoidProduct} className="bg-[#0fb4e0] px-6 py-3 transition duration-150 ease-out hover:ease-in cursor-pointer hover:bg-gray-700">
+                        <div className="flex items-center space-x-2">
+                       
+                            <span className="text-white text-base"> Checkout</span>
+                        </div>
+                    </li>
+
+                    {/* <li>
                         <span onClick={handleVoidProduct} className="text-xl cursor-pointer me-4 md:me-6 flex items-center gap-1.5">
                             <SiVoidlinux /> Void
                         </span>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
         </footer>
