@@ -19,6 +19,11 @@ function Footer() {
 
     const guestBilling = { first_name: "Guest" }
 
+    const openOrderInNewTab = (orderId) => {
+        const url = `${process.env.REACT_APP_TERMINAL_URL}?orderId=${orderId}`;
+        window.open(url, '_blank', 'noopener,noreferrer');
+    };
+
     const createOrder = async () => {
         if (items.find(item => item.shipping_required === true) && !customer.id) {
             setCustomerModal(true);
@@ -42,13 +47,13 @@ function Footer() {
             try {
                 setLoading(true);
                 const response = await OrderServices.createOrderApi(payload);
-                const orderId = response.id
+                const orderId = response.id;
                 setLoading(false);
                 notifySuccess("Order created successfully");
                 emptyCart();
                 dispatch(saveCustomer(""));
                 setBillingAddress(false);
-                window.open(`${process.env.REACT_APP_TERMINAL_URL}?orderId=${orderId}`, '_blank', 'noopener,noreferrer');
+                openOrderInNewTab(orderId);
             } catch (error) {
                 const errorMessage = catchError(error);
                 setLoading(false);
@@ -56,6 +61,7 @@ function Footer() {
             }
         }
     };
+    
 
 
     return (
