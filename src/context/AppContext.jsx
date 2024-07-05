@@ -1,4 +1,4 @@
-import React, { useState, useMemo, createContext} from "react";
+import React, { useState, useMemo, createContext } from "react";
 
 export const AppContext = createContext();
 
@@ -8,7 +8,9 @@ export const AppProvider = ({ children }) => {
   const [isUpdate, setIsUpdate] = useState(false);
   const [customerModal, setCustomerModal] = useState(false);
   const [addCustomer, setAddCustomer] = useState(false);
-  const [isBillingAddress , setBillingAddress] = useState(false)
+  const [isBillingAddress, setBillingAddress] = useState(false)
+  const [attributeModal, setAttributeModal] = useState(false)
+
 
   const value = useMemo(
     () => ({
@@ -24,9 +26,10 @@ export const AppProvider = ({ children }) => {
       setIsLoading,
       isBillingAddress,
       setBillingAddress,
-
+      attributeModal,
+      setAttributeModal
     }),
-    [ currentPage, isLoading , customerModal , addCustomer , isBillingAddress]
+    [currentPage, isLoading, customerModal, addCustomer, isBillingAddress , attributeModal]
   );
 
   return (

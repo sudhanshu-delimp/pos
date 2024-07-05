@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
-import { SiVoidlinux } from "react-icons/si";
 import { useCart } from "react-use-cart";
 import { saveCustomer } from "../redux/reducers/appSlice";
 import { useSelector } from "react-redux";
@@ -15,13 +14,8 @@ function Footer() {
     const { customer } = useSelector((state) => state.app);
     const [loading, setLoading] = useState(false);
     const { catchError } = useUtilsFunction();
-    const { setCustomerModal , setBillingAddress } = useContext(AppContext);
+    const { setCustomerModal, setBillingAddress } = useContext(AppContext);
     const { isEmpty, items, cartTotal, emptyCart } = useCart();
-
-    const handleVoidProduct = () => {
-        dispatch(saveCustomer(""));
-        emptyCart();
-    }
 
     const guestBilling = { first_name: "Guest" }
 
@@ -47,7 +41,6 @@ function Footer() {
             }
             try {
                 setLoading(true);
-                const popupWindow = window.open("", "Popup", "width=600,height=700");
                 const response = await OrderServices.createOrderApi(payload);
                 const orderId = response.id
                 setLoading(false);
@@ -55,8 +48,7 @@ function Footer() {
                 emptyCart();
                 dispatch(saveCustomer(""));
                 setBillingAddress(false);
-                popupWindow.location.href = `${process.env.REACT_APP_TERMINAL_URL}?orderId=${orderId}`;
-                // window.open(`${process.env.REACT_APP_TERMINAL_URL}?orderId=${orderId}`, "Popup", "width=600,height=700");
+                window.open(`${process.env.REACT_APP_TERMINAL_URL}?orderId=${orderId}`, '_blank', 'noopener,noreferrer');
             } catch (error) {
                 const errorMessage = catchError(error);
                 setLoading(false);
@@ -74,32 +66,22 @@ function Footer() {
                 >
                     <span className="self-center text-xl cursor-pointer font-semibold whitespace-nowrap dark:text-white">
                         {cartTotal > 0 && (
-                            <span onClick={createOrder}>
-                                {loading ? "Processing" : "Total"} ${cartTotal?.toFixed(2)}
+                            <span >
+                                Total : ${cartTotal?.toFixed(2)}
                             </span>
                         )}
                     </span>
                 </span>
                 <ul className="flex flex-wrap items-center mb-6 text-sm font-medium sm:mb-0">
-                    {/* <li onClick={handleVoidProduct} className="bg-[#0fb4e0] px-6 py-3 transition duration-150 ease-out hover:ease-in cursor-pointer hover:bg-gray-700">
-                        <div className="flex items-center space-x-2">
-                        <SiVoidlinux />
-                            <span className="text-white"> Void</span>
-                        </div>
-                    </li> */}
-
-                    <li onClick={handleVoidProduct} className="bg-[#0fb4e0] px-6 py-3 transition duration-150 ease-out hover:ease-in cursor-pointer hover:bg-gray-700">
-                        <div className="flex items-center space-x-2">
-                       
-                            <span className="text-white text-base"> Checkout</span>
-                        </div>
-                    </li>
-
-                    {/* <li>
-                        <span onClick={handleVoidProduct} className="text-xl cursor-pointer me-4 md:me-6 flex items-center gap-1.5">
-                            <SiVoidlinux /> Void
-                        </span>
-                    </li> */}
+                    {cartTotal > 0 && (
+                        <li className="bg-[#0fb4e0] px-6 py-3 transition duration-150 ease-out hover:ease-in cursor-pointer hover:bg-gray-700">
+                            <div onClick={createOrder} className="flex items-center space-x-2">
+                                {cartTotal > 0 && (
+                                    <span className="text-white text-base">{loading ? "Processing" : "Checkout"}</span>
+                                )}
+                            </div>
+                        </li>
+                    )}
                 </ul>
             </div>
         </footer>

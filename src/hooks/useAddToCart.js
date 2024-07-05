@@ -10,7 +10,7 @@ const useAddToCart = () => {
   const handleAddItem = (product) => {
     const result = items.find((i) => i.id === product.id);
     const { description, ...updatedProduct } = product;
-    addItem(updatedProduct, item);
+    addItem(updatedProduct, product.quantity);
    // notifySuccess(`${item} ${product.title} added to cart!`);
   };
 
