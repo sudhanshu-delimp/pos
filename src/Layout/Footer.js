@@ -21,7 +21,13 @@ function Footer() {
 
     const openOrderInNewTab = (orderId) => {
         const url = `${process.env.REACT_APP_TERMINAL_URL}?orderId=${orderId}`;
-        window.open(url, '_blank', 'noopener,noreferrer');
+        // window.location.assign(url, '_blank', 'noopener,noreferrer');
+        var newWindow = window.open(url,"Popup", "width=700,height=800");
+        if (newWindow) {
+            newWindow.focus();
+        } else {
+            alert('Pop up blocked! Please enable pop-ups for this site.');
+        }
     };
 
     const createOrder = async () => {
@@ -61,7 +67,7 @@ function Footer() {
             }
         }
     };
-    
+
 
 
     return (
