@@ -219,9 +219,9 @@ const Addcustomer = () => {
       notifyError("Email is Required")
     }
 
-    else if(!billingAddress && isBillingAddress === true){
-      notifyError("Please enter the address")
-    }
+    // else if(!billingAddress && isBillingAddress === true){
+    //   notifyError("Please enter the address")
+    // }
 
     else {
       let payload = {
