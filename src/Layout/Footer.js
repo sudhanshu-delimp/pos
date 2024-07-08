@@ -24,9 +24,6 @@ function Footer() {
         // window.location.assign(url, '_blank', 'noopener,noreferrer');
         var newWindow = window.open(url,"Popup", "width=700,height=800");
         if (newWindow) {
-            emptyCart();
-            dispatch(saveCustomer(""));
-            setBillingAddress(false);
             newWindow.focus();
         } else {
             alert('Pop up blocked! Please enable pop-ups for this site.');
@@ -59,6 +56,9 @@ function Footer() {
                 const orderId = response.id;
                 setLoading(false);
               //  notifySuccess("Order created successfully");
+                emptyCart();
+                dispatch(saveCustomer(""));
+                setBillingAddress(false);
                 openOrderInNewTab(orderId);
             } catch (error) {
                 const errorMessage = catchError(error);
