@@ -46,7 +46,7 @@ function Header() {
               >
               </button>
               {customer.first_name &&
-                <span onClick={() => setCustomerModal(true)} className="flex flex-col cursor-pointer ms-14 md:me-24">
+                <span onClick={() => setCustomerModal(true)} className="flex flex-col cursor-pointer ms-14 md:me-24 max-w-40">
                   <span className="text-base font-semibold sm:text-sm whitespace-nowrap dark:text-white text-white capitalize flex items-center gap-2">
                     <FaUserCheck />
                     {`${customer.first_name} ${customer.last_name}`}
@@ -62,7 +62,7 @@ function Header() {
             </div>
 
             <div className="flex items-center text-white">
-              <ul className="flex flex-wrap items-center text-sm font-medium sm:mb-0 gap-4">
+              <ul className="flex flex-wrap items-center text-sm font-medium sm:mb-0 gap-2">
                 <li onClick={handleVoidProduct} className="bg-red-500 hover:bg-red-300 focus:ring-4 focus:ring-red-300 px-6 py-3 transition duration-150 ease-out hover:ease-in cursor-pointer">
                   <div className="flex items-center space-x-2">
                     <SiVoidlinux />

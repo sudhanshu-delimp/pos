@@ -70,107 +70,137 @@ class Checkout extends Component {
 
   // 1. Stripe Terminal Initialization
   initializeBackendClientAndTerminal(url) {
-    // 1a. Initialize Client class, which communicates with the example terminal backend
-    this.client = new Client(url);
-
-    // 1b. Initialize the StripeTerminal object
-    this.terminal = window.StripeTerminal.create({
-      // 1c. Create a callback that retrieves a new ConnectionToken from the example backend
-      onFetchConnectionToken: async () => {
-        let connectionTokenResult = await this.client.createConnectionToken();
-        return connectionTokenResult.secret;
-      },
-      // 1c. (Optional) Create a callback that will be called if the reader unexpectedly disconnects.
-      // You can use this callback to alert your user that the reader is no longer connected and will need to be reconnected.
-      onUnexpectedReaderDisconnect: Logger.tracedFn(
-        "onUnexpectedReaderDisconnect",
-        "https://stripe.com/docs/terminal/js-api-reference#stripeterminal-create",
-        () => {
-          alert("Unexpected disconnect from the reader");
-          this.setState({
-            connectionStatus: "not_connected",
-            reader: null
-          });
-        }
-      ),
-      // 1c. (Optional) Create a callback that will be called when the reader's connection status changes.
-      // You can use this callback to update your UI with the reader's connection status.
-      onConnectionStatusChange: Logger.tracedFn(
-        "onConnectionStatusChange",
-        "https://stripe.com/docs/terminal/js-api-reference#stripeterminal-create",
-        ev => {
-          this.setState({ connectionStatus: ev.status, reader: null });
-        }
-      )
-    });
-    Logger.watchObject(this.client, "backend", {
-      createConnectionToken: {
-        docsUrl: "https://stripe.com/docs/terminal/sdk/js#connection-token"
-      },
-      registerDevice: {
-        docsUrl:
-          "https://stripe.com/docs/terminal/readers/connecting/verifone-p400#register-reader"
-      },
-      createPaymentIntent: {
-        docsUrl: "https://stripe.com/docs/terminal/payments#create"
-      },
-      capturePaymentIntent: {
-        docsUrl: "https://stripe.com/docs/terminal/payments#capture"
-      },
-      savePaymentMethodToCustomer: {
-        docsUrl: "https://stripe.com/docs/terminal/payments/saving-cards"
+    try {
+      console.log("Initializing Client and Terminal...");
+      
+      // 1a. Initialize Client class, which communicates with the example terminal backend
+      this.client = new Client(url);
+      console.log("Client initialized:", this.client);
+      
+      // 1b. Initialize the StripeTerminal object
+      if (!window?.StripeTerminal) {
+        throw new Error("StripeTerminal is not available on this browser");
       }
-    });
-    Logger.watchObject(this.terminal, "terminal", {
-      discoverReaders: {
-        docsUrl:
-          "https://stripe.com/docs/terminal/js-api-reference#discover-readers"
-      },
-      connectReader: {
-        docsUrl:
-          "https://stripe.com/docs/terminal/js-api-reference#connect-reader"
-      },
-      disconnectReader: {
-        docsUrl: "https://stripe.com/docs/terminal/js-api-reference#disconnect"
-      },
-      setReaderDisplay: {
-        docsUrl:
-          "https://stripe.com/docs/terminal/js-api-reference#set-reader-display"
-      },
-      collectPaymentMethod: {
-        docsUrl:
-          "https://stripe.com/docs/terminal/js-api-reference#collect-payment-method"
-      },
-      cancelCollectPaymentMethod: {
-        docsUrl:
-          "https://stripe.com/docs/terminal/js-api-reference#cancel-collect-payment-method"
-      },
-      processPayment: {
-        docsUrl:
-          "https://stripe.com/docs/terminal/js-api-reference#process-payment"
-      },
-      readReusableCard: {
-        docsUrl:
-          "https://stripe.com/docs/terminal/js-api-reference#read-reusable-card"
-      },
-      cancelReadReusableCard: {
-        docsUrl:
-          "https://stripe.com/docs/terminal/js-api-reference#cancel-read-reusable-card"
-      },
-      collectRefundPaymentMethod: {
-        docsUrl:
-          "https://stripe.com/docs/terminal/js-api-reference#stripeterminal-collectrefundpaymentmethod"
-      },
-      processRefund: {
-        docsUrl:
-          "https://stripe.com/docs/terminal/js-api-reference#stripeterminal-processrefund"
-      },
-      cancelCollectRefundPaymentMethod: {
-        docsUrl:
-          "https://stripe.com/docs/terminal/js-api-reference#stripeterminal-cancelcollectrefundpaymentmethod"
-      }
-    });
+  
+      this.terminal = window.StripeTerminal.create({
+        // 1c. Create a callback that retrieves a new ConnectionToken from the example backend
+        onFetchConnectionToken: async () => {
+          try {
+            console.log("Fetching connection token...");
+            let connectionTokenResult = await this.client.createConnectionToken();
+            if (!connectionTokenResult || !connectionTokenResult.secret) {
+              throw new Error("Invalid connection token response");
+            }
+            console.log("Connection token fetched:", connectionTokenResult);
+            return connectionTokenResult.secret;
+          } catch (error) {
+            console.error("Error fetching connection token:", error);
+            alert(`Error fetching connection token: ${error.message}`);
+            // Do not re-throw the error to prevent it from propagating
+            return null; // Return null or a fallback value
+          }
+        },
+        // 1c. (Optional) Create a callback that will be called if the reader unexpectedly disconnects.
+        onUnexpectedReaderDisconnect: Logger.tracedFn(
+          "onUnexpectedReaderDisconnect",
+          "https://stripe.com/docs/terminal/js-api-reference#stripeterminal-create",
+          () => {
+            alert("Unexpected disconnect from the reader");
+            this.setState({
+              connectionStatus: "not_connected",
+              reader: null
+            });
+          }
+        ),
+        // 1c. (Optional) Create a callback that will be called when the reader's connection status changes.
+        onConnectionStatusChange: Logger.tracedFn(
+          "onConnectionStatusChange",
+          "https://stripe.com/docs/terminal/js-api-reference#stripeterminal-create",
+          ev => {
+            this.setState({ connectionStatus: ev.status, reader: null });
+          }
+        )
+      });
+  
+      console.log("StripeTerminal initialized:", this.terminal);
+  
+      Logger.watchObject(this.client, "backend", {
+        createConnectionToken: {
+          docsUrl: "https://stripe.com/docs/terminal/sdk/js#connection-token"
+        },
+        registerDevice: {
+          docsUrl:
+            "https://stripe.com/docs/terminal/readers/connecting/verifone-p400#register-reader"
+        },
+        createPaymentIntent: {
+          docsUrl: "https://stripe.com/docs/terminal/payments#create"
+        },
+        capturePaymentIntent: {
+          docsUrl: "https://stripe.com/docs/terminal/payments#capture"
+        },
+        savePaymentMethodToCustomer: {
+          docsUrl: "https://stripe.com/docs/terminal/payments/saving-cards"
+        }
+      });
+  
+      Logger.watchObject(this.terminal, "terminal", {
+        discoverReaders: {
+          docsUrl:
+            "https://stripe.com/docs/terminal/js-api-reference#discover-readers"
+        },
+        connectReader: {
+          docsUrl:
+            "https://stripe.com/docs/terminal/js-api-reference#connect-reader"
+        },
+        disconnectReader: {
+          docsUrl: "https://stripe.com/docs/terminal/js-api-reference#disconnect"
+        },
+        setReaderDisplay: {
+          docsUrl:
+            "https://stripe.com/docs/terminal/js-api-reference#set-reader-display"
+        },
+        collectPaymentMethod: {
+          docsUrl:
+            "https://stripe.com/docs/terminal/js-api-reference#collect-payment-method"
+        },
+        cancelCollectPaymentMethod: {
+          docsUrl:
+            "https://stripe.com/docs/terminal/js-api-reference#cancel-collect-payment-method"
+        },
+        processPayment: {
+          docsUrl:
+            "https://stripe.com/docs/terminal/js-api-reference#process-payment"
+        },
+        readReusableCard: {
+          docsUrl:
+            "https://stripe.com/docs/terminal/js-api-reference#read-reusable-card"
+        },
+        cancelReadReusableCard: {
+          docsUrl:
+            "https://stripe.com/docs/terminal/js-api-reference#cancel-read-reusable-card"
+        },
+        collectRefundPaymentMethod: {
+          docsUrl:
+            "https://stripe.com/docs/terminal/js-api-reference#stripeterminal-collectrefundpaymentmethod"
+        },
+        processRefund: {
+          docsUrl:
+            "https://stripe.com/docs/terminal/js-api-reference#stripeterminal-processrefund"
+        },
+        cancelCollectRefundPaymentMethod: {
+          docsUrl:
+            "https://stripe.com/docs/terminal/js-api-reference#stripeterminal-cancelcollectrefundpaymentmethod"
+        }
+      });
+  
+      console.log("Logger initialized");
+  
+    } catch (error) {
+      console.error("Error initializing backend client and terminal:", error);
+      alert(`Error initializing backend client and terminal: ${error.message}`);
+    }
   }
+  
 
   // 2. Discover and connect to a reader.
   discoverReaders = async () => {
@@ -531,7 +561,6 @@ class Checkout extends Component {
     return (
       <div
         className={css`
-          display: flex;
           align-items: center;
           justify-content: center;
           padding: 24px;

@@ -10,6 +10,7 @@ export const AppProvider = ({ children }) => {
   const [addCustomer, setAddCustomer] = useState(false);
   const [isBillingAddress, setBillingAddress] = useState(false)
   const [attributeModal, setAttributeModal] = useState(false)
+  const [stripeModal, setSreipeModal] = useState(true)
 
 
   const value = useMemo(
@@ -27,9 +28,11 @@ export const AppProvider = ({ children }) => {
       isBillingAddress,
       setBillingAddress,
       attributeModal,
-      setAttributeModal
+      setAttributeModal,
+      stripeModal,
+      setSreipeModal
     }),
-    [currentPage, isLoading, customerModal, addCustomer, isBillingAddress , attributeModal]
+    [currentPage, isLoading, customerModal, addCustomer, isBillingAddress, attributeModal, stripeModal]
   );
 
   return (

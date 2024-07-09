@@ -6,10 +6,6 @@ const OrderServices = {
     return requests.post("/wc/v3/orders", body);
   },
 
-  createPaymentIntent: async (body) => {
-    return requests.post("/order/create-payment-intent", body);
-  },
-
   getOrderCustomer: async ({ page = 1, limit = 8 }) => {
     return requests.get(`/order?limit=${limit}&page=${page}`);
   },

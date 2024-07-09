@@ -89,14 +89,14 @@ const CustomerList = () => {
                             />
                         </div>
                     </div>
-                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border-collapse">
+                    <table className="w-full mt-3 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border-collapse">
                         <tbody className='block max-h-[300px] overflow-y-auto'>
                             {filteredData && filteredData?.length > 0 &&
                                 filteredData.map((item, index) => (
                                     item?.first_name &&
-                                    <tr onClick={() => handleSelectCustomer(item)} key={index + 1} className="bg-white border-b cursor-pointer dark:bg-gray-200 dark:border-gray-200 hover:bg-gray-200 table w-full table-fixed">
-                                        <td className="px-4 py-4 text-[#000]">{`${item.first_name} ${item.last_name}`}</td>
-                                        <td className="px-4 py-4 text-[#000] text-right">{item?.billing?.phone}</td>
+                                    <tr onClick={() => handleSelectCustomer(item)} key={index + 1} className="bg-white cursor-pointer dark:bg-gray-200 dark:border-gray-200 hover:bg-gray-200 table w-full table-fixed">
+                                        <td className="px-4 py-2 text-[#000]">{`${item.first_name} ${item.last_name}`}</td>
+                                        <td className="px-4 py-2 text-[#000] text-right">{item?.billing?.phone}</td>
                                     </tr>
                                 ))
                             }
