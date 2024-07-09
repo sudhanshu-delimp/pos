@@ -23,8 +23,8 @@ const Login = () => {
       password: "",
     },
     validationSchema: Yup.object({
-      username: Yup.string().required("Username is required"),
-      password: Yup.string().required("This field is required"),
+      username: Yup.string().required("User name is required"),
+      password: Yup.string().required("Password is required"),
     }),
     onSubmit: async (values) => {
       let payload = values;
@@ -50,73 +50,90 @@ const Login = () => {
   });
 
   return (
-    <div className="container--login bg-[#ffffff] rounded-[8px] w-[350px] p-5 relative m-auto pb-[3rem] pt-[3rem] mt-[15%]">
-      <div className="card">
-        <div className="panel">
-          <h4 className="text-center pb-5">
-            Welcome to the <b>POS</b>
+
+    <>
+      <div class="min-h-screen bg-gray-50 flex flex-col justify-center py-10 sm:px-6 lg:px-8 px-6">
+        <div class="sm:mx-auto sm:w-full sm:max-w-md">
+          <h4 class="text-center text-2xl leading-9 font-extrabold text-gray-900">
+            Welcome to the POS
           </h4>
         </div>
-        <form onSubmit={formik.handleSubmit}>
-          <div className="mb-5">
-            <input
-              required
-              name="username"
-              onChange={formik.handleChange}
-              value={formik.values.username}
-              onBlur={formik.handleBlur}
-              type="text"
-              className="w-[100%] py-2 px-3"
-              placeholder="User Name"
-            />
-            {formik.touched.username && formik.errors.username ? (
-              <span className="text-danger">{formik.errors.username}</span>
-            ) : null}
+        <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+          <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+            <form onSubmit={formik.handleSubmit}>
+              <div>
+                <label for="email" class="block text-sm font-medium leading-5  text-gray-700">User name</label>
+                <div class="mt-2 relative rounded-md shadow-sm">
+                  <input
+                    class="appearance-none block w-full px-3 py-2 border border-gray-500 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                    required
+                    name="username"
+                    onChange={formik.handleChange}
+                    value={formik.values.username}
+                    onBlur={formik.handleBlur}
+                    type="text"
+                    placeholder="User name"
+                    id="email"
+                  />
+                </div>
+                {formik.touched.username && formik.errors.username ? (
+                  <div className="mt-1">
+                    <span className="text-red-600">{formik.errors.username}</span>
+                  </div>
+                ) : null}
+              </div>
+
+              <div class="mt-6">
+                <label for="password" class="block text-sm font-medium leading-5 text-gray-700">Password</label>
+                <div class="mt-2 rounded-md shadow-sm">
+                  <input
+                    class="appearance-none block w-full px-3 py-2 border border-gray-500 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                    type={showPassword ? "text" : "password"}
+                    className="w-[100%] py-2 px-3"
+                    required
+                    name="password"
+                    onChange={formik.handleChange}
+                    value={formik.values.password}
+                    onBlur={formik.handleBlur}
+                    placeholder="Password"
+                    id="password"
+                  />
+                </div>
+                {formik.touched.password && formik.errors.password ? (
+                  <div className="mt-1">
+                    <span className="text-red-600">{formik.errors.password}</span>
+                  </div>
+                ) : null}
+              </div>
+
+              {/* <div class="mt-6 flex items-center justify-between">
+              <div class="flex items-center">
+                <input id="remember_me" name="remember" type="checkbox" value="1" class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" />
+                <label for="remember_me" class="ml-2 block text-sm leading-5 text-gray-900">Remember me</label>
+              </div>
+
+              <div class="text-sm leading-5">
+                <a href="#"
+                  class="font-medium text-blue-500 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+                  Forgot your password?
+                </a>
+              </div>
+            </div> */}
+
+              <div class="mt-8">
+                <span class="block w-full rounded-md shadow-sm">
+                  <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#3498db] hover:[#3498db] focus:outline-none focus:border-[#3498db] focus:shadow-outline-indigo active:bg-[#3498db] transition duration-150 ease-in-out">
+                    {loading ? "Processing" : "Sign in"}
+                  </button>
+                </span>
+              </div>
+            </form>
           </div>
-          <div className="mb-3 ">
-            <div className="input-group flex items-center	justify-center	">
-              <input
-                type={showPassword ? "text" : "password"}
-                className="w-[100%] py-2 px-3"
-                required
-                name="password"
-                onChange={formik.handleChange}
-                value={formik.values.password}
-                onBlur={formik.handleBlur}
-                placeholder="Password"
-              />
-              <span
-                className="absolute right-10	"
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? <BsEye /> : <BsEyeSlash />}
-              </span>
-            </div>
-            {formik.touched.password && formik.errors.password ? (
-              <span className="text-danger">{formik.errors.password}</span>
-            ) : null}
-          </div>
-          {/* <div className="py-5">
-            <input
-              type="checkbox"
-              className="form-check-input"
-              id="rememberMe"
-              checked={rememberMe}
-              onChange={() => setRememberMe(!rememberMe)}
-            />
-            <label className="form-check-label ml-1" htmlFor="rememberMe">
-              Remember Me
-            </label>
-          </div> */}
-          <button
-            type="submit"
-            className="w-[100%] bg-[#3498db] py-2 px-3 mt-3 rounded-[6px] text-[#ffffff]"
-          >
-            {loading ? "Processing" : "Login"}
-          </button>
-        </form>
+        </div>
       </div>
-    </div>
+
+    </>
+
   );
 };
 

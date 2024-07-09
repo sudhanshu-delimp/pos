@@ -20,8 +20,7 @@ function Sidebar() {
             {items?.length > 0 &&
               items?.map((item, index) => (
                 <li key={index + 1} >
-                  <a
-                    href="#"
+                  <div
                     className="items-center p-0 mt-2 text-gray-900 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group"
                   >
                     <div className="p-4 bg-white rounded-lg shadow border border-gray-300">
@@ -57,7 +56,7 @@ function Sidebar() {
                         <button onClick={() => removeItem(item.id)} className="ml-4 bg-[#3498db] text-white rounded px-3 py-1">🗑</button>
                       </div>
                     </div>
-                  </a>
+                  </div>
                 </li>
               ))}
           </ul>

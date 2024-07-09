@@ -24,22 +24,22 @@ const Products = () => {
         //     setProduct(product)
         // }
         // else {
-            if (product.shipping_required && !customer.id) {
-                setCustomerModal(true)
-                setBillingAddress(true)
-            }
-            const price = parseInt(product.sale_price) || parseInt(product.regular_price) || parseInt(product.price) || 0
-            const newItem = {
-                id: product.id,
-                title: product.name,
-                image: product.images[0]?.src,
-                price: price,
-                status: product.status,
-                quantity: 1,
-                shipping_required: product.shipping_required
-            };
-            handleAddItem(newItem);
-      //  }
+        if (product.shipping_required && !customer.id) {
+            setCustomerModal(true)
+            setBillingAddress(true)
+        }
+        const price = parseInt(product.sale_price) || parseInt(product.regular_price) || parseInt(product.price) || 0
+        const newItem = {
+            id: product.id,
+            title: product.name,
+            image: product.images[0]?.src,
+            price: price,
+            status: product.status,
+            quantity: 1,
+            shipping_required: product.shipping_required
+        };
+        handleAddItem(newItem);
+        //  }
     };
 
     const getPrice = (product) => {
@@ -72,10 +72,10 @@ const Products = () => {
                                     <div className="mt-4 flex justify-between">
                                         <div>
                                             <h3 className="text-gray-700 line-clamp-2">
-                                                <a href="#">
+                                                <span>
                                                     <span aria-hidden="true" className="absolute inset-0" />
                                                     {item.name}
-                                                </a>
+                                                </span>
                                             </h3>
                                             <p onClick={toggleAttributeModal} className="mt-1 font-medium text-gray-900">
                                                 ${getPrice(item)}

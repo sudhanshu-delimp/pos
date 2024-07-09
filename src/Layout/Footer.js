@@ -20,14 +20,15 @@ function Footer() {
     const guestBilling = { first_name: "Guest" }
 
     const openOrderInNewTab = (orderId) => {
-        const popupWindow = window.open("", "Popup", "width=600,height=700");
-
         const url = `${process.env.REACT_APP_TERMINAL_URL}?orderId=${orderId}`;
+
+        const popupWindow = window.open(url, "_blank");
+
         // window.location.assign(url, '_blank', 'noopener,noreferrer');
        // var newWindow = window.open(url,"Popup", "width=700,height=800");
         if (popupWindow) {
-            popupWindow.location.href = `${process.env.REACT_APP_TERMINAL_URL}?orderId=${orderId}`;
-           // newWindow.focus();
+           // popupWindow.location.href = `${process.env.REACT_APP_TERMINAL_URL}?orderId=${orderId}`;
+           popupWindow.focus();
         } else {
             alert('Pop up blocked! Please enable pop-ups for this site.');
         }
@@ -77,7 +78,7 @@ function Footer() {
         <footer className="bg-[#3498db] text-white p-4 fixed bottom-0 w-full z-40">
             <div className="sm:flex sm:items-center gap-20">
                 <span
-                    className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse"
+                    className="flex items-center sm:mb-0 space-x-3 rtl:space-x-reverse"
                 >
                     <span className="self-center text-xl cursor-pointer font-semibold whitespace-nowrap dark:text-white">
                         {cartTotal > 0 && (
@@ -87,7 +88,7 @@ function Footer() {
                         )}
                     </span>
                 </span>
-                <ul className="flex flex-wrap items-center mb-6 text-sm font-medium sm:mb-0">
+                <ul className="flex flex-wrap items-center text-sm font-medium sm:mb-0">
                     {cartTotal > 0 && (
                         <li className="bg-[#0fb4e0] px-6 py-3 transition duration-150 ease-out hover:ease-in cursor-pointer hover:bg-gray-700">
                             <div onClick={createOrder} className="flex items-center space-x-2">

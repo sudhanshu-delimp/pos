@@ -6,7 +6,9 @@ import PrivateRoute from "./PrivateRoute";
 const Home = lazy(() => import("../Pages/Home"));
 const Login = lazy(() => import("../Pages/Auth/Login"));
 const Orders = lazy(() => import("../Pages/Order/OrderList"));
+const Checkout = lazy(() => import("../Pages/Checkout/Checkout"));
 const Test = lazy(() => import("../Pages/Test/Test"));
+
 
 
 function RootRouters() {
@@ -26,6 +28,12 @@ function RootRouters() {
             </PrivateRoute>
           }
         />
+
+        <Route
+          path="/checkout"
+          element={<Checkout />}
+        />
+
         <Route path="/orders" element={<Orders />} />
 
         <Route

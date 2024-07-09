@@ -55,16 +55,19 @@
     font-weight: 500;
     color: #363636;
   }
-  button {
+
+  /* button {
     background: rgba(15, 180, 224) !important;
     border-radius: 0 !important;
     padding: 8px 25px !important;
     color: #fff !important;
     transition: 0.5s;
-}
-button:hover{
+} */
+
+
+/* button:hover{
 	background: #374151 !important;
-}
+} */
   
  
   
