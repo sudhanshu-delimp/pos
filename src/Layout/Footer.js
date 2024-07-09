@@ -20,11 +20,14 @@ function Footer() {
     const guestBilling = { first_name: "Guest" }
 
     const openOrderInNewTab = (orderId) => {
+        const popupWindow = window.open("", "Popup", "width=600,height=700");
+
         const url = `${process.env.REACT_APP_TERMINAL_URL}?orderId=${orderId}`;
         // window.location.assign(url, '_blank', 'noopener,noreferrer');
-        var newWindow = window.open(url,"Popup", "width=700,height=800");
-        if (newWindow) {
-            newWindow.focus();
+       // var newWindow = window.open(url,"Popup", "width=700,height=800");
+        if (popupWindow) {
+            popupWindow.location.href = `${process.env.REACT_APP_TERMINAL_URL}?orderId=${orderId}`;
+           // newWindow.focus();
         } else {
             alert('Pop up blocked! Please enable pop-ups for this site.');
         }
