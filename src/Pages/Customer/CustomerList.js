@@ -5,7 +5,7 @@ import useAsync from './../../hooks/useAsync';
 import { useDispatch } from 'react-redux';
 import { saveCustomer } from '../../redux/reducers/appSlice';
 import { notifySuccess } from "../../utils/toast";
-import Loader from "../../Components/preloader/Loader";
+import Loader from "../../components_new/preloader/Loader";
 
 
 

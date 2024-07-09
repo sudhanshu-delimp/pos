@@ -5,7 +5,7 @@ import useAsync from "./../../hooks/useAsync";
 import ProductServices from "../../services/ProductServices";
 import { AppContext } from "../../context/AppContext";
 import { useSelector } from "react-redux";
-import Loader from "../../Components/preloader/Loader";
+import Loader from "../../components_new/preloader/Loader";
 import AttributesModal from "../Attribute/AttributesModal";
 
 
