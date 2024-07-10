@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { AppContext } from '../../context/AppContext';
 import Checkout from '../../Pages/Checkout/Checkout';
 
-const StripeModal = () => {
+const StripeModal = ({orderId}) => {
     const { setSreipeModal } = useContext(AppContext);
 
 
@@ -43,7 +43,7 @@ const StripeModal = () => {
                         </a>
                     </div>
                     <div className="w-full mx-auto max-h-[500px] overflow-y-auto lg:max-h-[800] lg:overflow-y-auto">
-                        < Checkout />
+                        < Checkout orderId = {orderId} />
                     </div>
                 </section>
             </div>

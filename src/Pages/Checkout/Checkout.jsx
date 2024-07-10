@@ -45,8 +45,9 @@ class Checkout extends Component {
   }
 
   componentDidMount() {
-    const searchParams = new URLSearchParams(window.location.search);
-    const orderId = searchParams.get('orderId');
+    // const searchParams = new URLSearchParams(window.location.search);
+    // const orderId = searchParams.get('orderId');
+    const orderId = this.props.orderId
     console.log("orderId: ", orderId);
     this.setState({ orderId });
   }
@@ -321,7 +322,7 @@ class Checkout extends Component {
         return;
       }
     }
-
+    
     const simulatorConfiguration = {
       testPaymentMethod: this.state.testPaymentMethod,
       testCardNumber: this.state.testCardNumber
@@ -452,7 +453,7 @@ class Checkout extends Component {
     this.setState({ backendURL: url });
   };
 
-
+  
   updateChargeAmount = amount =>
     this.setState({ chargeAmount: parseInt(amount, 10) });
   updateItemDescription = description =>

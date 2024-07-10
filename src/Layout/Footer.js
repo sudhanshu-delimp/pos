@@ -15,8 +15,11 @@ function Footer() {
     const { customer } = useSelector((state) => state.app);
     const [loading, setLoading] = useState(false);
     const { catchError } = useUtilsFunction();
+    const [orderId, setOrderId] = useState("")
     const { setCustomerModal, setBillingAddress, stripeModal, setSreipeModal } = useContext(AppContext);
     const { isEmpty, items, cartTotal, emptyCart } = useCart();
+
+
 
     const guestBilling = { first_name: "Guest" }
 
@@ -43,7 +46,7 @@ function Footer() {
             const cartItems = items.map((item) => ({
                 product_id: item.id,
                 quantity: item.quantity,
-                meta_data : item.meta_data
+                meta_data: item.meta_data
             }));
             let payload = {
                 payment_method: "delimpterminal",
@@ -59,14 +62,15 @@ function Footer() {
             try {
                 setLoading(true);
                 const response = await OrderServices.createOrderApi(payload);
-                const orderId = response.id;
+                const order_id = response?.id;
+                setOrderId(order_id)
                 setLoading(false);
                 //  notifySuccess("Order created successfully");
                 emptyCart();
                 dispatch(saveCustomer(""));
                 setBillingAddress(false);
                 setSreipeModal(true)
-               // openOrderInNewTab(orderId);
+                // openOrderInNewTab(orderId);
             } catch (error) {
                 const errorMessage = catchError(error);
                 setLoading(false);
@@ -105,7 +109,7 @@ function Footer() {
             </footer>
 
             {stripeModal &&
-                <StripeModal />
+                <StripeModal orderId={orderId} />
             }
 
         </>
