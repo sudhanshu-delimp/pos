@@ -95,7 +95,7 @@ class Checkout extends Component {
             return connectionTokenResult.secret;
           } catch (error) {
             console.error("Error fetching connection token:", error);
-            alert(`Error fetching connection token: ${error.message}`);
+           // alert(`Error fetching connection token: ${error.message}`);
             // Do not re-throw the error to prevent it from propagating
             return null; // Return null or a fallback value
           }
@@ -197,7 +197,7 @@ class Checkout extends Component {
   
     } catch (error) {
       console.error("Error initializing backend client and terminal:", error);
-      alert(`Error initializing backend client and terminal: ${error.message}`);
+     // alert(`Error initializing backend client and terminal: ${error.message}`);
     }
   }
   
@@ -321,8 +321,6 @@ class Checkout extends Component {
         return;
       }
     }
-
-
 
     const simulatorConfiguration = {
       testPaymentMethod: this.state.testPaymentMethod,
@@ -453,6 +451,8 @@ class Checkout extends Component {
     this.initializeBackendClientAndTerminal(url);
     this.setState({ backendURL: url });
   };
+
+
   updateChargeAmount = amount =>
     this.setState({ chargeAmount: parseInt(amount, 10) });
   updateItemDescription = description =>
@@ -581,7 +581,6 @@ class Checkout extends Component {
                   onClickDisconnect={this.disconnectReader}
                 />
               )}
-
               {this.renderForm()}
             </Group>
             <Logs />

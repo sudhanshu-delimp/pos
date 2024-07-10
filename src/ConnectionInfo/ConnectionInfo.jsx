@@ -19,7 +19,7 @@ class ConnectionInfo extends React.Component {
 
     return (
       <Group direction="column" spacing={0}>
-        <Section position="first">
+        {/* <Section position="first">
           {backendURL ? (
             <Group
               direction="row"
@@ -52,7 +52,7 @@ class ConnectionInfo extends React.Component {
               </Text>
             </Group>
           )}
-        </Section>
+        </Section> */}
         <Section position="last">
           {reader ? (
             <Group

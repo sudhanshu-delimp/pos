@@ -52,7 +52,7 @@ const AttributesModal = ({ product }) => {
             price: price,
             status: product.status,
             quantity: quantity,
-            attributes: selectedAttributes,
+            meta_data: selectedAttributes,
             shipping_required: product.shipping_required
         };
         handleAddItem(newItem);
@@ -92,7 +92,7 @@ const AttributesModal = ({ product }) => {
                             </a>
                         </div>
 
-                        <div className="w-full mx-auto max-h-[500px] overflow-y-auto lg:max-h-[800] lg:overflow-y-auto">
+                        <div className="w-full mx-auto max-h-[550px] overflow-y-auto lg:max-h-[800] lg:overflow-y-auto">
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mx-auto max-md:px-2 ">
                                 <div className="img">
                                     <div className="img-box w-full md:w-96 lg:w-full h-full">
@@ -105,12 +105,12 @@ const AttributesModal = ({ product }) => {
                                 </div>
                                 <div className="data w-full xl:justify-start justify-start flex">
                                     <div className="data w-full">
-                                        <h2 className="font-manrope text-[22px] md:text-[28px] lg:text-[28px] leading-10 text-gray-900 mb-2 capitalize">
+                                        <h2 className="font-manrope text-[18px] md:text-[24px] lg:text-[24px] leading-10 text-gray-900 mb-2 capitalize">
                                             {product.name}
                                         </h2>
                                         <div className="flex flex-col sm:flex-row mb-2">
-                                            <h6 className="font-manrope font-semibold text-2xl leading-9 text-gray-900 pr-5 sm:border-r border-gray-200 mr-5">
-                                                {getPrice(product)}
+                                            <h6 className="font-manrope font-semibold text-xl leading-9 text-gray-900 pr-5 sm:border-r border-gray-200 mr-5">
+                                                ${getPrice(product)}
                                             </h6>
                                         </div>
                                         <form className="mx-auto">
@@ -143,7 +143,7 @@ const AttributesModal = ({ product }) => {
                                                     <button
                                                         type='button'
                                                         disabled={quantity === 1}
-                                                        onClick={() => setQuantity(quantity - 1)} className="bg-gray-300 text-gray-700 rounded-l px-3 py-1">
+                                                        onClick={() => setQuantity(quantity - 1)} className="bg-gray-300 text-gray-700 rounded-l px-3 py-2.5">
                                                         -
                                                     </button>
                                                     <input
@@ -154,14 +154,14 @@ const AttributesModal = ({ product }) => {
                                                     />
                                                     <button
                                                         type='button'
-                                                        onClick={() => setQuantity(quantity + 1)} className="bg-gray-300 text-gray-700 rounded-r px-3 py-1">
+                                                        onClick={() => setQuantity(quantity + 1)} className="bg-gray-300 text-gray-700 rounded-r px-3 py-2.5">
                                                         +
                                                     </button>
                                                 </div>
                                                 <button
                                                     onClick={handleAddToCart}
                                                     type='button'
-                                                    className="ml-4 bg-[#3498db] text-white rounded px-3 py-1 w-full"
+                                                    className="btn ml-4 bg-[#3498db] text-white rounded px-3 py-2 w-full"
                                                     disabled={!isFormValid}
                                                 >
                                                     Add to Cart

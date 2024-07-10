@@ -259,20 +259,20 @@ const Addcustomer = () => {
       <div className="flex items-center justify-between mb-4">
         <button
           type="button"
-          className="bg-[#3498db] text-white px-4 py-2 rounded"
+          className="bg-[#3498db] text-white px-4 py-2.5 rounded"
           onClick={() => setAddCustomer(false)}
         >
           Back
         </button>
-        <h3>Create new customer</h3>
-        <button type="button" onClick={handleSubmit} className="bg-[#3498db] text-white px-4 py-2 rounded">
+        <h4 class="text-xl font-semibold dark:text-white">Create Customer</h4>
+        <button type="button" onClick={handleSubmit} className="bg-[#3498db] text-white px-4 py-2.5 rounded">
           {isLoading ? "Processing" : "Save"}
         </button>
       </div>
       <div className="m-auto">
         <div className="form_container max-w-[100%] m-auto pl-1 pr-1 h-[400px] overflow-y-scroll">
           <div className="billing_address">
-            <h1 className="text-[16px] pb-3 text-[#000000]">
+            <h1 className="text-[16px] pb-2 text-[#000000]">
               Billing Details
             </h1>
             <form>
@@ -374,15 +374,15 @@ const Addcustomer = () => {
               </div>
             </form>
           </div>
-          <div className="shipping_address">
-            <input onChange={(e) => setShowShippingAddress(e.target.checked)} checked={isShippingAddress} type="checkbox" className="mt-5 cursor-pointer" />{" "}
-            <span className="text-[16px] pb-5 pt-5  text-[#00000082]">
+          <div className="shipping_address py-4">
+            <input onChange={(e) => setShowShippingAddress(e.target.checked)} checked={isShippingAddress} type="checkbox" className="cursor-pointer" />{" "}
+            <span className="text-[16px] text-[#00000082]">
               <span className="pt-1 pr-1"></span>
               Ship to a different address
             </span>
             {isShippingAddress &&
               <>
-                <h1 className="text-[16px] pb-3 text-[#000000] mt-2">
+                <h1 className="text-[16px] pb-2 text-[#000000]">
                   Shipping Address
                 </h1>
                 <form>

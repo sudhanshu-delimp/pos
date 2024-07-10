@@ -37,19 +37,19 @@ const CustomerList = () => {
                 <div>
                     <button
                         type="button"
-                        className="bg-[#3498db] text-white px-4 py-2 rounded mr-2"
+                        className="bg-[#3498db] text-white px-4 py-2.5 rounded mr-2"
                         onClick={() => setCustomerModal(false)}
                     >
                         Cancel
                     </button>
                 </div>
                 <div>
-                    <a className=" text-[#000]">Customers</a>
+                    <h4 class="text-xl font-semibold dark:text-white">Customers</h4>
                 </div>
                 <div>
                     <button
                         onClick={() => setAddCustomer(true)}
-                        className="cursor-pointer bg-[#3498db] text-white px-4 py-2 rounded"
+                        className="cursor-pointer bg-[#3498db] text-white px-4 py-2.5 rounded"
                     >
                         Add
                     </button>

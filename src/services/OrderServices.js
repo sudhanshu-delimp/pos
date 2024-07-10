@@ -3,7 +3,7 @@ import requests from "./httpServices";
 const OrderServices = {
 
   createOrderApi: async (body) => {
-    return requests.post("/wc/v3/orders", body);
+    return requests.post("/wc/v3/orders/test", body);
   },
 
   getOrderCustomer: async ({ page = 1, limit = 8 }) => {

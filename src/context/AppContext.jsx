@@ -10,7 +10,7 @@ export const AppProvider = ({ children }) => {
   const [addCustomer, setAddCustomer] = useState(false);
   const [isBillingAddress, setBillingAddress] = useState(false)
   const [attributeModal, setAttributeModal] = useState(false)
-  const [stripeModal, setSreipeModal] = useState(true)
+  const [stripeModal, setSreipeModal] = useState(false)
 
 
   const value = useMemo(

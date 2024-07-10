@@ -15,7 +15,7 @@ function Footer() {
     const { customer } = useSelector((state) => state.app);
     const [loading, setLoading] = useState(false);
     const { catchError } = useUtilsFunction();
-    const { setCustomerModal, setBillingAddress, stripeModal } = useContext(AppContext);
+    const { setCustomerModal, setBillingAddress, stripeModal, setSreipeModal } = useContext(AppContext);
     const { isEmpty, items, cartTotal, emptyCart } = useCart();
 
     const guestBilling = { first_name: "Guest" }
@@ -43,6 +43,7 @@ function Footer() {
             const cartItems = items.map((item) => ({
                 product_id: item.id,
                 quantity: item.quantity,
+                meta_data : item.meta_data
             }));
             let payload = {
                 payment_method: "delimpterminal",
@@ -64,7 +65,8 @@ function Footer() {
                 emptyCart();
                 dispatch(saveCustomer(""));
                 setBillingAddress(false);
-                openOrderInNewTab(orderId);
+                setSreipeModal(true)
+               // openOrderInNewTab(orderId);
             } catch (error) {
                 const errorMessage = catchError(error);
                 setLoading(false);
@@ -73,26 +75,24 @@ function Footer() {
         }
     };
 
-
-
     return (
         <>
             <footer className="bg-[#3498db] text-white p-4 fixed bottom-0 w-full z-40">
-                <div className="sm:flex sm:items-center gap-20">
+                <div className="sm:flex sm:items-center gap-10">
                     <span
                         className="flex items-center sm:mb-0 space-x-3 rtl:space-x-reverse"
                     >
                         <span className="self-center text-xl cursor-pointer font-semibold whitespace-nowrap dark:text-white">
                             {cartTotal > 0 && (
                                 <span >
-                                    Total : ${cartTotal?.toFixed(2)}
+                                    Total ${cartTotal?.toFixed(2)}
                                 </span>
                             )}
                         </span>
                     </span>
                     <ul className="flex flex-wrap items-center text-sm font-medium sm:mb-0">
                         {cartTotal > 0 && (
-                            <li className="bg-[#0fb4e0] px-6 py-3 transition duration-150 ease-out hover:ease-in cursor-pointer hover:bg-gray-700">
+                            <li className="bg-[#0fb4e0] px-5 py-3 transition duration-150 ease-out hover:ease-in cursor-pointer hover:bg-gray-700">
                                 <div onClick={createOrder} className="flex items-center space-x-2">
                                     {cartTotal > 0 && (
                                         <span className="text-white text-base">{loading ? "Processing" : "Checkout"}</span>
