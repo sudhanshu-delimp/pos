@@ -56,8 +56,8 @@ const Products = () => {
 
     return (
         <>
-            <div className="p-[4px] sm:ml-96">
-                <div className="p-[4px] border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-20 mb-14">
+            <div className="py-[12px] px-[4px] sm:ml-96">
+                <div className="py-[12px] px-[4px] border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-20 mb-14">
                     <div className="grid pos--content">
                         {data?.length > 0 &&
                             data?.map((item, index) => (
