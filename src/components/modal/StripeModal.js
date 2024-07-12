@@ -1,19 +1,30 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../../context/AppContext';
 import Checkout from '../../Pages/Checkout/Checkout';
+import { useCart } from 'react-use-cart';
+import { useDispatch } from 'react-redux';
+import { saveCustomer } from '../../redux/reducers/appSlice';
 
-const StripeModal = ({orderId}) => {
+const StripeModal = ({ orderId }) => {
+    const dispatch = useDispatch();
     const { setSreipeModal } = useContext(AppContext);
+    const { emptyCart } = useCart();
 
+
+    const clearCartData = () => {
+        emptyCart();
+        dispatch(saveCustomer(""));
+        setSreipeModal(false)
+    }
 
     return (
 
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-6">
-            <div className="bg-white rounded-lg p-6 w-[100%] max-w-[1100px] min-h-80 transition-transform duration-300 translate-x-0">
+            <div className="bg-white rounded-lg p-6 max-w-[1100px] min-h-80 transition-transform duration-300 translate-x-0">
                 <section className="relative">
                     <div className="flex items-center justify-between rounded-t mb-4">
-                        <button onClick={() => setSreipeModal(false)} type="button" class="w-full flex items-center justify-center px-4 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 sm:w-auto dark:hover:bg-gray-800 dark:bg-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:border-gray-800">
-                            <svg class="w-5 h-5 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <button onClick={() => setSreipeModal(false)} type="button" class="flex items-center justify-center px-3 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 sm:w-auto dark:hover:bg-gray-800 dark:bg-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:border-gray-800">
+                            <svg class="w-3.5 h-5 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
                             </svg>
                             <span>Go back</span>
@@ -43,7 +54,7 @@ const StripeModal = ({orderId}) => {
                         </a>
                     </div>
                     <div className="w-full mx-auto max-h-[500px] overflow-y-auto lg:max-h-[800] lg:overflow-y-auto">
-                        < Checkout orderId = {orderId} />
+                        < Checkout orderId={orderId} clearCartData={clearCartData} />
                     </div>
                 </section>
             </div>

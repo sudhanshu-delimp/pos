@@ -357,6 +357,7 @@ class Checkout extends Component {
               paymentIntentId: confirmResult.paymentIntent.id
             });
             this.pendingPaymentIntentSecret = null;
+            this.props.clearCartData();
             console.log("Payment Successful!");
             return captureResult;
           } catch (e) {
@@ -584,7 +585,7 @@ class Checkout extends Component {
               )}
               {this.renderForm()}
             </Group>
-            <Logs />
+            {/* <Logs /> */}
           </Group>
         </Group>
       </div>

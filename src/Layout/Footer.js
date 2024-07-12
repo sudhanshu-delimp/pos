@@ -63,12 +63,12 @@ function Footer() {
                 setLoading(true);
                 const response = await OrderServices.createOrderApi(payload);
                 const order_id = response?.id;
+                setBillingAddress(false);
                 setOrderId(order_id)
                 setLoading(false);
                 //  notifySuccess("Order created successfully");
-                emptyCart();
-                dispatch(saveCustomer(""));
-                setBillingAddress(false);
+                //  emptyCart();
+                //  dispatch(saveCustomer(""));
                 setSreipeModal(true)
                 // openOrderInNewTab(orderId);
             } catch (error) {
@@ -96,7 +96,7 @@ function Footer() {
                         <ul className="flex items-center text-sm font-medium sm:mb-0">
                             <li className="bg-[#0fb4e0] transition duration-150 ease-out hover:ease-in cursor-pointer hover:bg-gray-700">
                                 <div onClick={createOrder} className="flex items-center space-x-2">
-                                    <button disabled = {loading || items?.length === 0 } className="btn text-white rounded px-4 py-2.5 w-full">{loading ? "Processing" : "Checkout"}</button>
+                                    <button disabled={loading || items?.length === 0} className="btn text-white rounded px-4 py-2.5 w-full">{loading ? "Processing" : "Checkout"}</button>
                                 </div>
                             </li>
                         </ul>
