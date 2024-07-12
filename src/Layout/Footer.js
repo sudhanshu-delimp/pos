@@ -66,7 +66,7 @@ function Footer() {
                 setBillingAddress(false);
                 setOrderId(order_id)
                 setLoading(false);
-                //  notifySuccess("Order created successfully");
+                notifySuccess("Order created successfully!");
                 //  emptyCart();
                 //  dispatch(saveCustomer(""));
                 setSreipeModal(true)
