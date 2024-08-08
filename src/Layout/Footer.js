@@ -1,13 +1,13 @@
 import React, { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useCart } from "react-use-cart";
-import { saveCustomer } from "../redux/reducers/appSlice";
 import { useSelector } from "react-redux";
 import { notifySuccess, notifyError } from "../utils/toast";
 import OrderServices from "../services/OrderServices";
 import useUtilsFunction from "../hooks/useUtilsFunction";
 import { AppContext } from "../context/AppContext";
 import StripeModal from './../components/modal/StripeModal';
+import { saveStoreOrderId } from "../redux/reducers/appSlice";
 
 
 function Footer() {
@@ -17,17 +17,12 @@ function Footer() {
     const { catchError } = useUtilsFunction();
     const [orderId, setOrderId] = useState("")
     const { setCustomerModal, setBillingAddress, stripeModal, setSreipeModal } = useContext(AppContext);
-    const { isEmpty, items, cartTotal, emptyCart } = useCart();
+    const { items, cartTotal } = useCart();
 
-
-
-    const guestBilling = { first_name: "Guest" }
 
     const openOrderInNewTab = (orderId) => {
         const url = `${process.env.REACT_APP_TERMINAL_URL}?orderId=${orderId}`;
-
         const popupWindow = window.open(url, "_blank");
-
         // window.location.assign(url, '_blank', 'noopener,noreferrer');
         // var newWindow = window.open(url,"Popup", "width=700,height=800");
         if (popupWindow) {
@@ -39,6 +34,7 @@ function Footer() {
     };
 
     const createOrder = async () => {
+        const guestBilling = { first_name: "Guest" }
         if (items.find(item => item.shipping_required === true) && !customer.id) {
             setCustomerModal(true);
             setBillingAddress(true);
@@ -64,13 +60,11 @@ function Footer() {
                 const response = await OrderServices.createOrderApi(payload);
                 const order_id = response?.id;
                 setBillingAddress(false);
-                setOrderId(order_id)
+                setOrderId(order_id);
+                dispatch(saveStoreOrderId(order_id));
                 setLoading(false);
                 notifySuccess("Order created successfully!");
-                //  emptyCart();
-                //  dispatch(saveCustomer(""));
                 setSreipeModal(true)
-                // openOrderInNewTab(orderId);
             } catch (error) {
                 const errorMessage = catchError(error);
                 setLoading(false);

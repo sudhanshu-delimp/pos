@@ -52,8 +52,6 @@ const Products = () => {
 
     }
 
-    console.log("attributeModal", attributeModal)
-
     return (
         <>
             <div className="py-[12px] px-[4px] sm:ml-96">

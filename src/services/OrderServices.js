@@ -6,20 +6,8 @@ const OrderServices = {
     return requests.post("/wc/v3/orders", body);
   },
 
-  getOrderCustomer: async ({ page = 1, limit = 8 }) => {
-    return requests.get(`/order?limit=${limit}&page=${page}`);
-  },
-
-  getOrderById: async (id, body) => {
-    return requests.get(`/order/${id}`, body);
-  },
-
-  acceptOfferApi: async (body) => {
-    return requests.post(`/orders/update_offer_status`, body);
-  },
-
-  rejectOfferApi: async (body) => {
-    return requests.post(`/orders/update_offer_status`, body);
+  removeOrderApi: async (id) => {
+    return requests.delete(`/wc/v3/orders/${id}`, { "force": true });
   },
 
 };

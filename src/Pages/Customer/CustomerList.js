@@ -44,7 +44,7 @@ const CustomerList = () => {
                     </button>
                 </div>
                 <div>
-                    <h4 class="text-xl font-semibold dark:text-white">Customers</h4>
+                    <h4 className="text-xl font-semibold dark:text-white">Customers</h4>
                 </div>
                 <div>
                     <button

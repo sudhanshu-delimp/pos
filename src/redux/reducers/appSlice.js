@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    customer: {}
+    customer: {},
+    storeOrderId : ""
 };
 
 export const appSlice = createSlice({
@@ -11,9 +12,12 @@ export const appSlice = createSlice({
         saveCustomer: (state, action) => {
             state.customer = action.payload;
         },
+        saveStoreOrderId: (state, action) => {
+            state.storeOrderId = action.payload;
+        },
     },
 });
 
-export const { saveCustomer } = appSlice.actions;
+export const { saveCustomer , saveStoreOrderId } = appSlice.actions;
 
 export default appSlice.reducer;

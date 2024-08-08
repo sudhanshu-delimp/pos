@@ -236,7 +236,6 @@ const Addcustomer = () => {
       try {
         setLoading(true);
         const response = await CustomerServices.addCustomerApi(payload);
-        console.log("CustomerResponse", response)
         if (response.id) {
           dispatch(saveCustomer(response))
         }
@@ -264,7 +263,7 @@ const Addcustomer = () => {
         >
           Back
         </button>
-        <h4 class="text-xl font-semibold dark:text-white">Create Customer</h4>
+        <h4 className="text-xl font-semibold dark:text-white">Create Customer</h4>
         <button type="button" onClick={handleSubmit} className="bg-[#3498db] text-white px-4 py-2.5 rounded">
           {isLoading ? "Processing" : "Save"}
         </button>

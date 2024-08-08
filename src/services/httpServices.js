@@ -5,7 +5,7 @@ import store from '../redux/store';
 let api_url = `${process.env.REACT_APP_BASEURL}`
 
 const instance = axios.create({
-  baseURL: api_url ,
+  baseURL: api_url,
   timeout: 500000,
   headers: {
     Accept: 'application/json',
@@ -26,16 +26,17 @@ instance.interceptors.request.use(function (config) {
   };
 });
 
-// console.log(process.env.API_BASE_URL);
 const responseBody = (response) => response.data;
 
 const requests = {
   get: (url, body) => instance.get(url, body).then(responseBody),
 
-  post: (url, body, headers) =>
-    instance.post(url, body, headers).then(responseBody),
+  post: (url, body) => instance.post(url, body).then(responseBody),
 
   put: (url, body) => instance.put(url, body).then(responseBody),
+
+  delete: (url, body) => instance.delete(url, body).then(responseBody),
+
 };
 
 export default requests;
